@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 import { BookOpen, Users, Calendar, Zap, ArrowRight, Globe, Heart, MessageSquare } from "lucide-react";
 
 export default function Index() {
+  const { user } = useAuth();
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary-50 via-background to-background">
       {/* Header */}
@@ -15,8 +18,20 @@ export default function Index() {
             <h1 className="text-2xl font-bold text-foreground">UniConnect</h1>
           </Link>
           <div className="flex gap-4">
-            <Button variant="outline">Login</Button>
-            <Button className="bg-primary-500 hover:bg-primary-600">Cadastro</Button>
+            {user ? (
+              <Link to="/dashboard">
+                <Button className="bg-primary-500 hover:bg-primary-600">Dashboard</Button>
+              </Link>
+            ) : (
+              <>
+                <Link to="/login">
+                  <Button variant="outline">Login</Button>
+                </Link>
+                <Link to="/signup">
+                  <Button className="bg-primary-500 hover:bg-primary-600">Cadastro</Button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </header>

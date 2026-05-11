@@ -4,46 +4,14 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Users, Plus, Heart, MapPin, Clock, MessageSquare, Share2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { events } from "@/lib/events-data";
 
 export default function Dashboard() {
-  const featuredEvents = [
-    {
-      id: 1,
-      title: "Festival de Artes Cênicas 2024",
-      description: "Uma noite mágica com apresentações de teatro, dança e performances artísticas.",
-      date: "15 de Junho",
-      time: "19:00",
-      location: "Teatro Universitário",
-      category: "Teatro",
-      image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&h=400&fit=crop",
-      participants: 245,
-      joinedByUser: false,
-    },
-    {
-      id: 2,
-      title: "Mostra de Fotografias Contemporânea",
-      description: "Exposição com trabalhos de fotógrafos universitários e convidados especiais.",
-      date: "20 de Junho",
-      time: "14:00",
-      location: "Galeria de Arte Central",
-      category: "Exposição",
-      image: "https://images.unsplash.com/photo-1532909114669-2b92b7cb9def?w=600&h=400&fit=crop",
-      participants: 128,
-      joinedByUser: true,
-    },
-    {
-      id: 3,
-      title: "Show da Banda Universitária",
-      description: "Apresentação ao vivo da banda oficial da universidade com convidados.",
-      date: "22 de Junho",
-      time: "20:00",
-      location: "Auditório Principal",
-      category: "Música",
-      image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&h=400&fit=crop",
-      participants: 512,
-      joinedByUser: false,
-    },
-  ];
+  const featuredEvents = events.slice(0, 3).map((event) => ({
+    ...event,
+    description: `Evento de ${event.course}. Confira detalhes completos na página de eventos.`,
+    joinedByUser: Math.random() > 0.5,
+  }));
 
   const popularGroups = [
     {

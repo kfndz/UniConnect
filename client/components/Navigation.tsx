@@ -1,12 +1,20 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BookOpen, Home, Users, Calendar, Search, LogOut, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 
 export function Navigation() {
   const location = useLocation();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   const isActive = (path: string) => {
     return location.pathname === path;
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
   };
 
   return (
@@ -88,13 +96,26 @@ export function Navigation() {
           </Link>
         </div>
 
+        {/* User Info */}
+        {user && (
+          <div className="px-4 py-4 border-t border-sidebar-border mb-4">
+            <p className="font-semibold text-sidebar-foreground text-sm">{user.name}</p>
+            <p className="text-xs text-sidebar-accent-foreground">{user.course}</p>
+            <p className="text-xs text-sidebar-accent-foreground">{user.semester}º semestre</p>
+          </div>
+        )}
+
         {/* Bottom Actions */}
-        <div className="px-4 py-8 border-t border-sidebar-border space-y-2">
+        <div className="px-4 py-4 border-t border-sidebar-border space-y-2">
           <Button variant="ghost" className="w-full justify-start gap-3 text-sidebar-foreground hover:bg-sidebar-accent">
             <Bell className="w-5 h-5" />
             <span>Notificações</span>
           </Button>
-          <Button variant="ghost" className="w-full justify-start gap-3 text-sidebar-foreground hover:bg-sidebar-accent">
+          <Button
+            variant="ghost"
+            className="w-full justify-start gap-3 text-sidebar-foreground hover:bg-sidebar-accent"
+            onClick={handleLogout}
+          >
             <LogOut className="w-5 h-5" />
             <span>Sair</span>
           </Button>

@@ -3,82 +3,13 @@ import { Users, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { groups } from "@/lib/groups-data";
 
 export default function Groups() {
-  const groups = [
-    {
-      id: 1,
-      name: "Clube de Fotografia",
-      category: "Arte",
-      description: "Grupo dedicado à fotografia, compartilhando técnicas, experiências e saídas fotográficas.",
-      members: 347,
-      image: "https://images.unsplash.com/photo-1606986628025-35d57e735ae0?w=400&h=300&fit=crop",
-      joined: false,
-    },
-    {
-      id: 2,
-      name: "Banda Universitária",
-      category: "Música",
-      description: "Banda oficial da universidade, apresentando-se em eventos culturais e festivais.",
-      members: 89,
-      image: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=300&fit=crop",
-      joined: true,
-    },
-    {
-      id: 3,
-      name: "Teatro Experimental",
-      category: "Artes Cênicas",
-      description: "Grupo de teatro focado em experimentações e novas formas de expressão artística.",
-      members: 156,
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
-      joined: false,
-    },
-    {
-      id: 4,
-      name: "Clube de Programação",
-      category: "Tecnologia",
-      description: "Desenvolvedores se reunindo para aprender, colaborar e trabalhar em projetos juntos.",
-      members: 523,
-      image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=300&fit=crop",
-      joined: true,
-    },
-    {
-      id: 5,
-      name: "Grupo de Dança",
-      category: "Dança",
-      description: "Apresentações de dança clássica, contemporânea e outros estilos em eventos da universidade.",
-      members: 203,
-      image: "https://images.unsplash.com/photo-1508700115892-5e266fcd6bac?w=400&h=300&fit=crop",
-      joined: false,
-    },
-    {
-      id: 6,
-      name: "Clube de Literatura",
-      category: "Literatura",
-      description: "Discussões sobre livros, autores e criação literária em um ambiente acolhedor e colaborativo.",
-      members: 178,
-      image: "https://images.unsplash.com/photo-1507842217343-583f20270319?w=400&h=300&fit=crop",
-      joined: false,
-    },
-    {
-      id: 7,
-      name: "Cineclube",
-      category: "Cinema",
-      description: "Sessões de filmes clássicos, independentes e contemporâneos com discussão posterior.",
-      members: 267,
-      image: "https://images.unsplash.com/photo-1489599849228-ed4dc3ee49b9?w=400&h=300&fit=crop",
-      joined: true,
-    },
-    {
-      id: 8,
-      name: "Grupo de Estudos",
-      category: "Acadêmico",
-      description: "Reuniões para estudar em grupo, trocar materiais e preparar para provas.",
-      members: 412,
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
-      joined: false,
-    },
-  ];
+  const groupsList = groups.map((group) => ({
+    ...group,
+    joined: Math.random() > 0.6,
+  }));
 
   return (
     <Layout>
