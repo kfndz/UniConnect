@@ -1,15 +1,14 @@
 import { Layout } from "@/components/Layout";
-import { Calendar, MapPin, Users, Clock, Plus } from "lucide-react";
+import { Calendar, MapPin, Users, Clock, Plus, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { events } from "@/lib/events-data";
+import { useParticipations } from "@/hooks/useParticipations";
 
 export default function Events() {
-  const eventsList = events.map((event) => ({
-    ...event,
-    joined: Math.random() > 0.7,
-  }));
+  const { isParticipating, toggleParticipation } = useParticipations("events-page");
+  const eventsList = events;
 
   return (
     <Layout>
@@ -27,10 +26,15 @@ export default function Events() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {eventsList.map((event) => (
-          <Card key={event.id} className="overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
-            <div className="relative">
-              <img src={event.image} alt={event.title} className="w-full h-48 object-cover" />
-              <Badge className="absolute top-3 right-3 bg-primary-500">{event.category}</Badge>
+          <Card key={event.id} className="overflow-hidden hover:shadow-lg transition-shadow flex flex-col group cursor-pointer">
+            <div className="relative overflow-hidden bg-gray-200 h-48 flex items-center justify-center">
+              <img
+                src={event.image}
+                alt={event.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              />
+              <Badge className="absolute top-3 right-3 bg-primary-500 z-10">{event.category}</Badge>
             </div>
             <div className="p-6 flex-1 flex flex-col">
               <h3 className="text-lg font-bold text-foreground mb-4">{event.title}</h3>
@@ -50,10 +54,21 @@ export default function Events() {
                 </div>
               </div>
 
-              <Button 
-                className={`w-full ${event.joined ? 'bg-gray-200 text-foreground hover:bg-gray-300' : 'bg-primary-500 hover:bg-primary-600'}`}
+              <Button
+                onClick={() => toggleParticipation(`event-${event.id}`)}
+                className={`w-full transition-all ${
+                  isParticipating(`event-${event.id}`)
+                    ? 'bg-green-500 hover:bg-green-600 text-white'
+                    : 'bg-primary-500 hover:bg-primary-600 text-white'
+                }`}
               >
-                {event.joined ? 'Inscrito ✓' : 'Participar'}
+                {isParticipating(`event-${event.id}`) ? (
+                  <>
+                    <Check className="mr-2 w-4 h-4" /> Inscrito
+                  </>
+                ) : (
+                  'Participar'
+                )}
               </Button>
             </div>
           </Card>

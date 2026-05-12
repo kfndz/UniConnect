@@ -1,15 +1,14 @@
 import { Layout } from "@/components/Layout";
-import { Users, Plus } from "lucide-react";
+import { Users, Plus, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { groups } from "@/lib/groups-data";
+import { useParticipations } from "@/hooks/useParticipations";
 
 export default function Groups() {
-  const groupsList = groups.map((group) => ({
-    ...group,
-    joined: Math.random() > 0.6,
-  }));
+  const { isParticipating, toggleParticipation } = useParticipations("groups-page");
+  const groupsList = groups;
 
   return (
     <Layout>
@@ -27,8 +26,15 @@ export default function Groups() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {groupsList.map((group) => (
-          <Card key={group.id} className="overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
-            <img src={group.image} alt={group.name} className="w-full h-48 object-cover" />
+          <Card key={group.id} className="overflow-hidden hover:shadow-lg transition-shadow flex flex-col group cursor-pointer">
+            <div className="relative overflow-hidden bg-gray-200 h-48 flex items-center justify-center">
+              <img
+                src={group.image}
+                alt={group.name}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              />
+            </div>
             <div className="p-6 flex-1 flex flex-col">
               <Badge className="w-fit mb-3 bg-primary-100 text-primary-700 border-primary-200">{group.category}</Badge>
               <h3 className="text-lg font-bold text-foreground mb-2">{group.name}</h3>
@@ -40,10 +46,20 @@ export default function Groups() {
               </div>
 
               <Button
-                className={`w-full ${group.joined ? 'bg-gray-200 text-foreground hover:bg-gray-300 cursor-default' : 'bg-primary-500 hover:bg-primary-600'}`}
-                disabled={group.joined}
+                onClick={() => toggleParticipation(`group-${group.id}`)}
+                className={`w-full transition-all ${
+                  isParticipating(`group-${group.id}`)
+                    ? 'bg-green-500 hover:bg-green-600 text-white'
+                    : 'bg-primary-500 hover:bg-primary-600 text-white'
+                }`}
               >
-                {group.joined ? 'Membro ✓' : 'Entrar no Grupo'}
+                {isParticipating(`group-${group.id}`) ? (
+                  <>
+                    <Check className="mr-2 w-4 h-4" /> Membro
+                  </>
+                ) : (
+                  'Entrar no Grupo'
+                )}
               </Button>
             </div>
           </Card>

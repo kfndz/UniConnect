@@ -24,7 +24,7 @@ export const events = [
     location: "Bloco B - Laboratório de Informática",
     category: "Ciência da Computação",
     course: "Ciência da Computação",
-    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=400&fit=crop&q=80",
     participants: 156,
   },
   {
@@ -36,7 +36,7 @@ export const events = [
     location: "Bloco A - Sala de Aula 101",
     category: "Ciência da Computação",
     course: "Ciência da Computação",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=400&fit=crop&q=80",
     participants: 89,
   },
   {
@@ -48,7 +48,7 @@ export const events = [
     location: "Bloco B - Laboratório de Informática",
     category: "Ciência da Computação",
     course: "Ciência da Computação",
-    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1512941691920-25bda36dc643?w=600&h=400&fit=crop&q=80",
     participants: 67,
   },
 
@@ -62,7 +62,7 @@ export const events = [
     location: "Espaço Principal do Campus",
     category: "Engenharia Civil",
     course: "Engenharia Civil",
-    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1513828583688-c52646db42da?w=600&h=400&fit=crop&q=80",
     participants: 45,
   },
   {
@@ -74,7 +74,7 @@ export const events = [
     location: "Bloco C - Auditório Principal",
     category: "Engenharia Civil",
     course: "Engenharia Civil",
-    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=400&fit=crop&q=80",
     participants: 78,
   },
 
@@ -88,7 +88,7 @@ export const events = [
     location: "Laboratório de Física",
     category: "Engenharia Elétrica",
     course: "Engenharia Elétrica",
-    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1581092162562-40038a57b5cc?w=600&h=400&fit=crop&q=80",
     participants: 52,
   },
   {
@@ -100,7 +100,7 @@ export const events = [
     location: "Bloco D - Sala de Seminários",
     category: "Engenharia Elétrica",
     course: "Engenharia Elétrica",
-    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=600&h=400&fit=crop&q=80",
     participants: 98,
   },
 
@@ -114,7 +114,7 @@ export const events = [
     location: "Bloco C - Auditório Principal",
     category: "Medicina",
     course: "Medicina",
-    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop&q=80",
     participants: 234,
   },
   {
@@ -126,7 +126,7 @@ export const events = [
     location: "Bloco A - Sala de Aula 101",
     category: "Medicina",
     course: "Medicina",
-    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1585865387789-ce51b671d5bc?w=600&h=400&fit=crop&q=80",
     participants: 156,
   },
 
@@ -140,7 +140,7 @@ export const events = [
     location: "Laboratório de Biologia",
     category: "Enfermagem",
     course: "Enfermagem",
-    image: "https://images.unsplash.com/photo-1631217314498-c5c189e9c0aa?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1631217314498-c5c189e9c0aa?w=600&h=400&fit=crop&q=80",
     participants: 89,
   },
 
@@ -154,7 +154,7 @@ export const events = [
     location: "Bloco D - Sala de Seminários",
     category: "Psicologia",
     course: "Psicologia",
-    image: "https://images.unsplash.com/photo-1527482797697-8795b1a55a45?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1527482797697-8795b1a55a45?w=600&h=400&fit=crop&q=80",
     participants: 112,
   },
   {
@@ -166,7 +166,7 @@ export const events = [
     location: "Espaço Principal do Campus",
     category: "Psicologia",
     course: "Psicologia",
-    image: "https://images.unsplash.com/photo-1527482797697-8795b1a55a45?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=400&fit=crop&q=80",
     participants: 67,
   },
 
@@ -180,7 +180,7 @@ export const events = [
     location: "Bloco A - Sala de Aula 101",
     category: "Direito",
     course: "Direito",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1554521666-7deac817c8fe?w=600&h=400&fit=crop&q=80",
     participants: 78,
   },
   {
@@ -192,7 +192,7 @@ export const events = [
     location: "Bloco C - Auditório Principal",
     category: "Direito",
     course: "Direito",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1611423318046-ab4d3c82d73c?w=600&h=400&fit=crop&q=80",
     participants: 145,
   },
 
@@ -206,7 +206,7 @@ export const events = [
     location: "Bloco B - Laboratório de Informática",
     category: "Pedagogia",
     course: "Pedagogia",
-    image: "https://images.unsplash.com/photo-1427504494888-7d0ac21345fe?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1427504494888-7d0ac21345fe?w=600&h=400&fit=crop&q=80",
     participants: 93,
   },
   {
@@ -218,7 +218,7 @@ export const events = [
     location: "Bloco D - Sala de Seminários",
     category: "Pedagogia",
     course: "Pedagogia",
-    image: "https://images.unsplash.com/photo-1427504494888-7d0ac21345fe?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&h=400&fit=crop&q=80",
     participants: 87,
   },
 
@@ -232,7 +232,7 @@ export const events = [
     location: "Bloco A - Sala de Aula 101",
     category: "Publicidade e Propaganda",
     course: "Publicidade e Propaganda",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop&q=80",
     participants: 134,
   },
   {
@@ -244,7 +244,7 @@ export const events = [
     location: "Bloco E - Galeria de Arte",
     category: "Publicidade e Propaganda",
     course: "Publicidade e Propaganda",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=400&fit=crop&q=80",
     participants: 67,
   },
 
@@ -258,7 +258,7 @@ export const events = [
     location: "Espaço Principal do Campus",
     category: "Agronomia",
     course: "Agronomia",
-    image: "https://images.unsplash.com/photo-1574152611937-0df4b286107c?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1574152611937-0df4b286107c?w=600&h=400&fit=crop&q=80",
     participants: 45,
   },
   {
@@ -270,7 +270,7 @@ export const events = [
     location: "Espaço Principal do Campus",
     category: "Agronomia",
     course: "Agronomia",
-    image: "https://images.unsplash.com/photo-1574152611937-0df4b286107c?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1635839066195-d4a9f6f3eb56?w=600&h=400&fit=crop&q=80",
     participants: 38,
   },
 
@@ -284,7 +284,7 @@ export const events = [
     location: "Bloco E - Galeria de Arte",
     category: "Design Gráfico",
     course: "Design Gráfico",
-    image: "https://images.unsplash.com/photo-1606986628025-35d57e735ae0?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1606986628025-35d57e735ae0?w=600&h=400&fit=crop&q=80",
     participants: 56,
   },
 
@@ -298,7 +298,7 @@ export const events = [
     location: "Bloco E - Galeria de Arte",
     category: "Artes Visuais",
     course: "Artes Visuais",
-    image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&h=400&fit=crop&q=80",
     participants: 123,
   },
 
@@ -312,7 +312,7 @@ export const events = [
     location: "Bloco F - Estúdio de Música",
     category: "Música",
     course: "Música",
-    image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&h=400&fit=crop&q=80",
     participants: 89,
   },
   {
@@ -324,7 +324,7 @@ export const events = [
     location: "Auditório Principal - Campus",
     category: "Música",
     course: "Música",
-    image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&h=400&fit=crop&q=80",
     participants: 156,
   },
 
@@ -338,7 +338,7 @@ export const events = [
     location: "Bloco C - Auditório Principal",
     category: "Artes Cênicas",
     course: "Teatro",
-    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1485579149c0-123db9ce5e9c?w=600&h=400&fit=crop&q=80",
     participants: 245,
   },
   {
@@ -350,7 +350,7 @@ export const events = [
     location: "Quadra do Campus",
     category: "Dança",
     course: "Artes Cênicas",
-    image: "https://images.unsplash.com/photo-1508700115892-5e266fcd6bac?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1508700115892-5e266fcd6bac?w=600&h=400&fit=crop&q=80",
     participants: 78,
   },
 
@@ -364,7 +364,7 @@ export const events = [
     location: "Espaço Principal do Campus",
     category: "Geral",
     course: "Multidisciplinar",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop&q=80",
     participants: 523,
   },
 ];

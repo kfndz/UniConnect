@@ -2,15 +2,17 @@ import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Users, Plus, Heart, MapPin, Clock, MessageSquare, Share2 } from "lucide-react";
+import { Calendar, Users, Plus, Heart, MapPin, Clock, MessageSquare, Share2, Check } from "lucide-react";
 import { Link } from "react-router-dom";
 import { events } from "@/lib/events-data";
+import { useParticipations } from "@/hooks/useParticipations";
 
 export default function Dashboard() {
+  const { isParticipating, toggleParticipation } = useParticipations("dashboard-events");
+
   const featuredEvents = events.slice(0, 3).map((event) => ({
     ...event,
     description: `Evento de ${event.course}. Confira detalhes completos na página de eventos.`,
-    joinedByUser: Math.random() > 0.5,
   }));
 
   const popularGroups = [
@@ -19,32 +21,32 @@ export default function Dashboard() {
       name: "Clube de Fotografia",
       category: "Arte",
       members: 347,
-      image: "https://images.unsplash.com/photo-1606986628025-35d57e735ae0?w=300&h=300&fit=crop",
-      joined: false,
+      image: "https://images.unsplash.com/photo-1606986628025-35d57e735ae0?w=300&h=300&fit=crop&q=80",
+      joined: Math.random() > 0.5,
     },
     {
       id: 2,
       name: "Banda Universitária",
       category: "Música",
       members: 89,
-      image: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=300&h=300&fit=crop",
-      joined: true,
+      image: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=300&h=300&fit=crop&q=80",
+      joined: Math.random() > 0.5,
     },
     {
       id: 3,
       name: "Teatro Experimental",
       category: "Artes Cênicas",
       members: 156,
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=300&h=300&fit=crop",
-      joined: false,
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=300&h=300&fit=crop&q=80",
+      joined: Math.random() > 0.5,
     },
     {
       id: 4,
       name: "Clube de Programação",
       category: "Tecnologia",
       members: 523,
-      image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=300&h=300&fit=crop",
-      joined: true,
+      image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=300&h=300&fit=crop&q=80",
+      joined: Math.random() > 0.5,
     },
   ];
 
@@ -145,10 +147,15 @@ export default function Dashboard() {
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredEvents.map((event) => (
-            <Card key={event.id} className="overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
-              <div className="relative">
-                <img src={event.image} alt={event.title} className="w-full h-48 object-cover" />
-                <Badge className="absolute top-3 right-3 bg-primary-500">{event.category}</Badge>
+            <Card key={event.id} className="overflow-hidden hover:shadow-lg transition-shadow flex flex-col group cursor-pointer">
+              <div className="relative overflow-hidden bg-gray-200 h-48 flex items-center justify-center">
+                <img
+                  src={event.image}
+                  alt={event.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                />
+                <Badge className="absolute top-3 right-3 bg-primary-500 z-10">{event.category}</Badge>
               </div>
               <div className="p-6 flex-1 flex flex-col">
                 <h3 className="text-lg font-bold text-foreground mb-2">{event.title}</h3>
@@ -169,10 +176,21 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-                <Button 
-                  className={`w-full ${event.joinedByUser ? 'bg-gray-200 text-foreground' : 'bg-primary-500 hover:bg-primary-600'}`}
+                <Button
+                  onClick={() => toggleParticipation(`event-${event.id}`)}
+                  className={`w-full transition-all ${
+                    isParticipating(`event-${event.id}`)
+                      ? 'bg-green-500 hover:bg-green-600 text-white'
+                      : 'bg-primary-500 hover:bg-primary-600 text-white'
+                  }`}
                 >
-                  {event.joinedByUser ? 'Inscrito ✓' : 'Participar'}
+                  {isParticipating(`event-${event.id}`) ? (
+                    <>
+                      <Check className="mr-2 w-4 h-4" /> Inscrito
+                    </>
+                  ) : (
+                    'Participar'
+                  )}
                 </Button>
               </div>
             </Card>
@@ -190,17 +208,34 @@ export default function Dashboard() {
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {popularGroups.map((group) => (
-            <Card key={group.id} className="text-center hover:shadow-lg transition-shadow overflow-hidden flex flex-col">
-              <img src={group.image} alt={group.name} className="w-full h-32 object-cover" />
+            <Card key={group.id} className="text-center hover:shadow-lg transition-shadow overflow-hidden flex flex-col group cursor-pointer">
+              <div className="relative overflow-hidden bg-gray-200 h-32 flex items-center justify-center">
+                <img
+                  src={group.image}
+                  alt={group.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                />
+              </div>
               <div className="p-6 flex-1 flex flex-col">
                 <h3 className="text-lg font-bold text-foreground mb-1">{group.name}</h3>
                 <Badge variant="outline" className="mx-auto mb-4">{group.category}</Badge>
                 <p className="text-sm text-muted-foreground mb-4 flex-1">{group.members} membros</p>
-                <Button 
-                  variant={group.joined ? "outline" : "default"}
-                  className={group.joined ? '' : 'bg-primary-500 hover:bg-primary-600'}
+                <Button
+                  onClick={() => toggleParticipation(`popular-group-${group.id}`)}
+                  className={`w-full transition-all ${
+                    isParticipating(`popular-group-${group.id}`)
+                      ? 'bg-green-500 hover:bg-green-600 text-white'
+                      : 'bg-primary-500 hover:bg-primary-600 text-white'
+                  }`}
                 >
-                  {group.joined ? 'Membro ✓' : 'Entrar'}
+                  {isParticipating(`popular-group-${group.id}`) ? (
+                    <>
+                      <Check className="mr-2 w-4 h-4" /> Membro
+                    </>
+                  ) : (
+                    'Entrar'
+                  )}
                 </Button>
               </div>
             </Card>

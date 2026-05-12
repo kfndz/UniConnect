@@ -1,14 +1,16 @@
 import { Layout } from "@/components/Layout";
-import { Search as SearchIcon, Users, BookOpen } from "lucide-react";
+import { Search as SearchIcon, Users, BookOpen, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
+import { useParticipations } from "@/hooks/useParticipations";
 
 export default function Search() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchType, setSearchType] = useState<"students" | "groups">("students");
+  const { isParticipating, toggleParticipation } = useParticipations("search-page");
 
   const students = [
     {
@@ -163,8 +165,21 @@ export default function Search() {
                   </div>
                 </div>
 
-                <Button className="w-full bg-primary-500 hover:bg-primary-600">
-                  Conectar
+                <Button
+                  onClick={() => toggleParticipation(`student-${student.id}`)}
+                  className={`w-full transition-all ${
+                    isParticipating(`student-${student.id}`)
+                      ? 'bg-green-500 hover:bg-green-600 text-white'
+                      : 'bg-primary-500 hover:bg-primary-600 text-white'
+                  }`}
+                >
+                  {isParticipating(`student-${student.id}`) ? (
+                    <>
+                      <Check className="mr-2 w-4 h-4" /> Conectado
+                    </>
+                  ) : (
+                    'Conectar'
+                  )}
                 </Button>
               </Card>
             ))
@@ -181,8 +196,15 @@ export default function Search() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredGroups.length > 0 ? (
             filteredGroups.map((group) => (
-              <Card key={group.id} className="overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
-                <img src={group.avatar} alt={group.name} className="w-full h-32 object-cover" />
+              <Card key={group.id} className="overflow-hidden hover:shadow-lg transition-shadow flex flex-col group cursor-pointer">
+                <div className="relative overflow-hidden bg-gray-200 h-32 flex items-center justify-center">
+                  <img
+                    src={group.avatar}
+                    alt={group.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                </div>
                 <div className="p-6 flex-1 flex flex-col">
                   <Badge className="w-fit mb-3 bg-primary-100 text-primary-700 border-primary-200">{group.category}</Badge>
                   <h3 className="text-lg font-bold text-foreground mb-2">{group.name}</h3>
@@ -190,8 +212,21 @@ export default function Search() {
                     <Users className="w-4 h-4" />
                     <span>{group.members} membros</span>
                   </div>
-                  <Button className="w-full bg-primary-500 hover:bg-primary-600">
-                    Entrar no Grupo
+                  <Button
+                    onClick={() => toggleParticipation(`group-search-${group.id}`)}
+                    className={`w-full transition-all ${
+                      isParticipating(`group-search-${group.id}`)
+                        ? 'bg-green-500 hover:bg-green-600 text-white'
+                        : 'bg-primary-500 hover:bg-primary-600 text-white'
+                    }`}
+                  >
+                    {isParticipating(`group-search-${group.id}`) ? (
+                      <>
+                        <Check className="mr-2 w-4 h-4" /> Membro
+                      </>
+                    ) : (
+                      'Entrar no Grupo'
+                    )}
                   </Button>
                 </div>
               </Card>
