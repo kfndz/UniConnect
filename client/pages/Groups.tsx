@@ -26,7 +26,7 @@ export default function Groups() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {groups.map((group) => (
+        {groupsList.map((group) => (
           <Card key={group.id} className="overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
             <img src={group.image} alt={group.name} className="w-full h-48 object-cover" />
             <div className="p-6 flex-1 flex flex-col">
@@ -39,8 +39,9 @@ export default function Groups() {
                 <span>{group.members} membros</span>
               </div>
 
-              <Button 
-                className={`w-full ${group.joined ? 'bg-gray-200 text-foreground hover:bg-gray-300' : 'bg-primary-500 hover:bg-primary-600'}`}
+              <Button
+                className={`w-full ${group.joined ? 'bg-gray-200 text-foreground hover:bg-gray-300 cursor-default' : 'bg-primary-500 hover:bg-primary-600'}`}
+                disabled={group.joined}
               >
                 {group.joined ? 'Membro ✓' : 'Entrar no Grupo'}
               </Button>
