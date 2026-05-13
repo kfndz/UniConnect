@@ -14,6 +14,8 @@ import Dashboard from "./pages/Dashboard";
 import Events from "./pages/Events";
 import Groups from "./pages/Groups";
 import Search from "./pages/Search";
+import Profile from "./pages/Profile";
+import CreateEvent from "./pages/CreateEvent";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +40,8 @@ const AppRoutes = () => (
     <Route path="/events" element={<ProtectedRoute element={<Events />} />} />
     <Route path="/groups" element={<ProtectedRoute element={<Groups />} />} />
     <Route path="/search" element={<ProtectedRoute element={<Search />} />} />
+    <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
+    <Route path="/create-event" element={<ProtectedRoute element={<CreateEvent />} />} />
     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
     <Route path="*" element={<NotFound />} />
   </Routes>

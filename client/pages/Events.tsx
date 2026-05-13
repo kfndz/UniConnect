@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { events } from "@/lib/events-data";
 import { useParticipations } from "@/hooks/useParticipations";
+import { Link } from "react-router-dom";
 
 export default function Events() {
   const { isParticipating, toggleParticipation } = useParticipations("events-page");
@@ -18,9 +19,11 @@ export default function Events() {
             <h1 className="text-4xl font-bold text-foreground">Eventos Culturais</h1>
             <p className="text-muted-foreground text-lg mt-2">Descubra atividades incríveis acontecendo na universidade</p>
           </div>
-          <Button size="lg" className="bg-primary-500 hover:bg-primary-600 w-fit">
-            <Plus className="mr-2 w-5 h-5" /> Criar Evento
-          </Button>
+          <Link to="/create-event">
+            <Button size="lg" className="bg-primary-500 hover:bg-primary-600 w-fit">
+              <Plus className="mr-2 w-5 h-5" /> Criar Evento
+            </Button>
+          </Link>
         </div>
       </div>
 

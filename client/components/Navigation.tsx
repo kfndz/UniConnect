@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { BookOpen, Home, Users, Calendar, Search, LogOut, Bell } from "lucide-react";
+import { BookOpen, Home, Users, Calendar, Search, LogOut, Bell, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -98,15 +98,23 @@ export function Navigation() {
 
         {/* User Info */}
         {user && (
-          <div className="px-4 py-4 border-t border-sidebar-border mb-4">
-            <p className="font-semibold text-sidebar-foreground text-sm">{user.name}</p>
-            <p className="text-xs text-sidebar-accent-foreground">{user.course}</p>
-            <p className="text-xs text-sidebar-accent-foreground">{user.semester}º semestre</p>
-          </div>
+          <Link to="/profile">
+            <div className="px-4 py-4 border-t border-sidebar-border mb-4 hover:bg-sidebar-accent rounded-lg transition-colors cursor-pointer">
+              <p className="font-semibold text-sidebar-foreground text-sm">{user.name}</p>
+              <p className="text-xs text-sidebar-accent-foreground">{user.course}</p>
+              <p className="text-xs text-sidebar-accent-foreground">{user.semester}º semestre</p>
+            </div>
+          </Link>
         )}
 
         {/* Bottom Actions */}
         <div className="px-4 py-4 border-t border-sidebar-border space-y-2">
+          <Link to="/profile">
+            <Button variant="ghost" className="w-full justify-start gap-3 text-sidebar-foreground hover:bg-sidebar-accent">
+              <User className="w-5 h-5" />
+              <span>Meu Perfil</span>
+            </Button>
+          </Link>
           <Button variant="ghost" className="w-full justify-start gap-3 text-sidebar-foreground hover:bg-sidebar-accent">
             <Bell className="w-5 h-5" />
             <span>Notificações</span>
