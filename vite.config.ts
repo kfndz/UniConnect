@@ -27,15 +27,19 @@ export default defineConfig(({ mode }) => ({
 function expressPlugin(): Plugin {
   return {
     name: "express-plugin",
-    apply: "serve", // Only apply during development (serve mode)
+    apply: "serve",
 
     async configureServer(server) {
-      // Dynamic import only in development
-      const { createServer } = await import("./server");
+      // Prevent rolldown from resolving import during build
+      const serverPath = "./server";
 
-      const app = createServer();
+      const mod = await import(
+        /* @vite-ignore */
+        serverPath
+      );
 
-      // Add Express app as middleware to Vite dev server
+      const app = mod.createServer();
+
       server.middlewares.use(app);
     },
   };
