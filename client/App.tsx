@@ -17,6 +17,7 @@ import Search from "./pages/Search";
 import Profile from "./pages/Profile";
 import CreateEvent from "./pages/CreateEvent";
 import NotFound from "./pages/NotFound";
+import Notifications from "./pages/Notifications";
 
 const queryClient = new QueryClient();
 
@@ -36,12 +37,19 @@ const AppRoutes = () => (
     <Route path="/" element={<Index />} />
     <Route path="/login" element={<Login />} />
     <Route path="/signup" element={<Signup />} />
-    <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
+    <Route
+      path="/dashboard"
+      element={<ProtectedRoute element={<Dashboard />} />}
+    />
     <Route path="/events" element={<ProtectedRoute element={<Events />} />} />
     <Route path="/groups" element={<ProtectedRoute element={<Groups />} />} />
     <Route path="/search" element={<ProtectedRoute element={<Search />} />} />
     <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
-    <Route path="/create-event" element={<ProtectedRoute element={<CreateEvent />} />} />
+    <Route path="/notifications" element={<Notifications />} />
+    <Route
+      path="/create-event"
+      element={<ProtectedRoute element={<CreateEvent />} />}
+    />
     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
     <Route path="*" element={<NotFound />} />
   </Routes>
