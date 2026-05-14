@@ -187,13 +187,15 @@ export default function Index() {
             Faça parte de uma comunidade acadêmica vibrante e colaborativa.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-white text-primary-600 border border-primary-200 shadow-sm hover:bg-primary-500 hover:text-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
-            >
-              Criar Conta
-              <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-            </Button>
+            <Link to="/signup">
+              <Button
+                size="lg"
+                className="bg-white text-primary-600 border border-primary-200 shadow-sm hover:bg-primary-500 hover:text-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+              >
+                Criar Conta
+                <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
