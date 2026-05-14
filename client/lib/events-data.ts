@@ -1,16 +1,16 @@
 export const LOCATIONS = [
   "Bloco A - Sala de Aula 101",
   "Bloco B - Laboratório de Informática",
-  "Bloco C - Auditório Principal",
+  "Bloco C - Laboratório 101",
   "Bloco D - Sala de Seminários",
   "Bloco E - Galeria de Arte",
   "Bloco F - Estúdio de Música",
   "Auditório Principal - Campus",
   "Quadra do Campus",
   "Espaço Principal do Campus",
-  "Laboratório de Química",
-  "Laboratório de Física",
-  "Laboratório de Biologia",
+  "Laboratório de Enfermagem",
+  "Laboratório de Medicina",
+  "Laboratório de Farmácia",
 ];
 
 export const events = [
@@ -48,7 +48,7 @@ export const events = [
     location: "Bloco B - Laboratório de Informática",
     category: "Ciência da Computação",
     course: "Ciência da Computação",
-    image: "https://images.unsplash.com/photo-1512941691920-25bda36dc643?w=600&h=400&fit=crop&q=80",
+    image: "/images/workshop-apps.jpg",
     participants: 67,
   },
 
@@ -88,7 +88,7 @@ export const events = [
     location: "Laboratório de Física",
     category: "Engenharia Elétrica",
     course: "Engenharia Elétrica",
-    image: "https://images.unsplash.com/photo-1581092162562-40038a57b5cc?w=600&h=400&fit=crop&q=80",
+    image: "images/workshop-eletrica.jpg",
     participants: 52,
   },
   {
