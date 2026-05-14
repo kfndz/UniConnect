@@ -1,10 +1,14 @@
 import { Layout } from "@/components/Layout";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { AlertCircle, ArrowLeft } from "lucide-react";
+
+import { AlertCircle, ArrowLeft, CalendarPlus } from "lucide-react";
+
 import { LOCATIONS } from "@/lib/events-data";
 
 const CATEGORIES = [
@@ -27,7 +31,9 @@ const CATEGORIES = [
 
 export default function CreateEvent() {
   const navigate = useNavigate();
+
   const [error, setError] = useState("");
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -39,95 +45,159 @@ export default function CreateEvent() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     setError("");
 
-    if (!formData.title || !formData.description || !formData.date || !formData.time || !formData.location || !formData.category) {
-      setError("Todos os campos são obrigatórios");
+    const { title, description, date, time, location, category } = formData;
+
+    if (!title || !description || !date || !time || !location || !category) {
+      setError("Todos os campos são obrigatórios.");
       return;
     }
 
-    // Aqui você adicionaria a lógica para salvar o evento
-    console.log("Novo evento criado:", formData);
+    const existingEvents = JSON.parse(
+      localStorage.getItem("customEvents") || "[]",
+    );
+
+    const newEvent = {
+      id: Date.now(),
+      ...formData,
+      participants: 0,
+      image: "/img/default-event.jpg",
+    };
+
+    localStorage.setItem(
+      "customEvents",
+      JSON.stringify([newEvent, ...existingEvents]),
+    );
+
     navigate("/events");
   };
 
   return (
     <Layout>
-      <div className="max-w-2xl mx-auto">
-        <Button 
-          variant="outline" 
+      <div className="max-w-3xl mx-auto">
+        <Button
+          variant="outline"
           onClick={() => navigate("/events")}
-          className="mb-6"
+          className="mb-6 hover:-translate-y-1 transition-all duration-300"
         >
-          <ArrowLeft className="mr-2 w-4 h-4" /> Voltar aos Eventos
+          <ArrowLeft className="mr-2 w-4 h-4" />
+          Voltar aos Eventos
         </Button>
 
-        <Card className="p-8">
-          <h1 className="text-3xl font-bold text-foreground mb-2">Criar Novo Evento</h1>
-          <p className="text-muted-foreground mb-8">Compartilhe um evento cultural com a comunidade universitária</p>
+        <Card className="p-8 shadow-sm">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center">
+              <CalendarPlus className="w-6 h-6 text-primary-500" />
+            </div>
+
+            <div>
+              <h1 className="text-3xl font-bold text-foreground">
+                Criar Novo Evento
+              </h1>
+
+              <p className="text-muted-foreground">
+                Compartilhe um evento com a comunidade universitária
+              </p>
+            </div>
+          </div>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex gap-3">
+            <div className="mt-6 mb-6 p-4 rounded-xl border border-red-200 bg-red-50 flex gap-3">
               <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+
               <p className="text-sm text-red-700">{error}</p>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6 mt-8">
             <div>
-              <label className="block text-sm font-medium text-foreground mb-2">Título do Evento *</label>
+              <label className="block text-sm font-medium mb-2">
+                Título do Evento *
+              </label>
+
               <Input
-                placeholder="Ex: Festival de Artes 2024"
+                placeholder="Ex: Workshop de React"
                 value={formData.title}
-                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                required
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    title: e.target.value,
+                  })
+                }
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-foreground mb-2">Descrição *</label>
+              <label className="block text-sm font-medium mb-2">
+                Descrição *
+              </label>
+
               <textarea
-                placeholder="Descreva o evento em detalhes..."
-                value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                required
-                className="w-full px-4 py-2 border border-input rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
                 rows={5}
+                placeholder="Descreva os detalhes do evento..."
+                value={formData.description}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    description: e.target.value,
+                  })
+                }
+                className="w-full px-4 py-3 border border-input rounded-xl bg-background text-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary-500"
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">Data *</label>
+                <label className="block text-sm font-medium mb-2">Data *</label>
+
                 <Input
                   type="date"
                   value={formData.date}
-                  onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                  required
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      date: e.target.value,
+                    })
+                  }
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">Hora *</label>
+                <label className="block text-sm font-medium mb-2">Hora *</label>
+
                 <Input
                   type="time"
                   value={formData.time}
-                  onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                  required
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      time: e.target.value,
+                    })
+                  }
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">Localização *</label>
+                <label className="block text-sm font-medium mb-2">
+                  Localização *
+                </label>
+
                 <select
                   value={formData.location}
-                  onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                  className="w-full px-4 py-2 border border-input rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary-500"
-                  required
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      location: e.target.value,
+                    })
+                  }
+                  className="w-full px-4 py-3 border border-input rounded-xl bg-background focus:outline-none focus:ring-2 focus:ring-primary-500"
                 >
                   <option value="">Selecione um local</option>
+
                   {LOCATIONS.map((location) => (
                     <option key={location} value={location}>
                       {location}
@@ -137,14 +207,22 @@ export default function CreateEvent() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">Categoria *</label>
+                <label className="block text-sm font-medium mb-2">
+                  Categoria *
+                </label>
+
                 <select
                   value={formData.category}
-                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="w-full px-4 py-2 border border-input rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary-500"
-                  required
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      category: e.target.value,
+                    })
+                  }
+                  className="w-full px-4 py-3 border border-input rounded-xl bg-background focus:outline-none focus:ring-2 focus:ring-primary-500"
                 >
                   <option value="">Selecione uma categoria</option>
+
                   {CATEGORIES.map((category) => (
                     <option key={category} value={category}>
                       {category}
@@ -154,14 +232,15 @@ export default function CreateEvent() {
               </div>
             </div>
 
-            <div className="flex gap-4">
-              <Button 
-                type="submit" 
-                className="flex-1 bg-primary-500 hover:bg-primary-600 text-lg"
+            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+              <Button
+                type="submit"
+                className="flex-1 bg-primary-500 hover:bg-primary-600 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
                 Criar Evento
               </Button>
-              <Button 
+
+              <Button
                 type="button"
                 variant="outline"
                 onClick={() => navigate("/events")}
