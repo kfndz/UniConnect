@@ -75,7 +75,7 @@ export default function Dashboard() {
       name: "Clube de Fotografia",
       category: "Arte",
       members: 347,
-      image: "https://images.unsplash.com/photo-1606986628025-35d57e735ae0?w=300&h=300&fit=crop&q=80",
+      image: "images/clube-fotografia.jpg",
       joined: Math.random() > 0.5,
     },
     {
