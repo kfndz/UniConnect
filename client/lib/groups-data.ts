@@ -6,7 +6,7 @@ export const groups = [
     category: "Artes",
     description: "Grupo dedicado à fotografia, compartilhando técnicas, experiências e saídas fotográficas.",
     members: 347,
-    image: "https://images.unsplash.com/photo-1606986628025-35d57e735ae0?w=400&h=300&fit=crop",
+    image: "images/clube-fotografia.jpg",
     course: "Design Gráfico",
   },
   {
@@ -33,7 +33,7 @@ export const groups = [
     category: "Dança",
     description: "Apresentações de dança clássica, contemporânea e outros estilos.",
     members: 203,
-    image: "https://images.unsplash.com/photo-1508700115892-5e266fcd6bac?w=400&h=300&fit=crop",
+    image: "images/grupo-danca.jpg",
     course: "Artes Cênicas",
   },
   {
@@ -42,7 +42,7 @@ export const groups = [
     category: "Cinema",
     description: "Sessões de filmes clássicos, independentes e contemporâneos com discussão.",
     members: 267,
-    image: "https://images.unsplash.com/photo-1489599849228-ed4dc3ee49b9?w=400&h=300&fit=crop",
+    image: "images/cineclube.jpg",
     course: "Comunicação Social",
   },
   {
@@ -51,7 +51,7 @@ export const groups = [
     category: "Literatura",
     description: "Discussões sobre livros, autores e criação literária em ambiente colaborativo.",
     members: 178,
-    image: "https://images.unsplash.com/photo-1507842217343-583f20270319?w=400&h=300&fit=crop",
+    image: "images/clube-literatura.jpg",
     course: "Letras",
   },
 
@@ -147,7 +147,7 @@ export const groups = [
     category: "Saúde",
     description: "Profissionalização e desenvolvimento em enfermagem clínica.",
     members: 178,
-    image: "https://images.unsplash.com/photo-1631217314498-c5c189e9c0aa?w=400&h=300&fit=crop",
+    image: "images/associacao-enfermagem.jpg",
     course: "Enfermagem",
   },
   {
@@ -156,7 +156,7 @@ export const groups = [
     category: "Saúde",
     description: "Estudos de casos clínicos e discussão de práticas em psicologia.",
     members: 156,
-    image: "https://images.unsplash.com/photo-1527482797697-8795b1a55a45?w=400&h=300&fit=crop",
+    image: "images/grupo-psicologia.jpg",
     course: "Psicologia",
   },
 
@@ -176,7 +176,7 @@ export const groups = [
     category: "Ciências Sociais",
     description: "Professores e futuros educadores compartilhando metodologias e práticas.",
     members: 167,
-    image: "https://images.unsplash.com/photo-1427504494888-7d0ac21345fe?w=400&h=300&fit=crop",
+    image: "images/grupo-educadores.jpg",
     course: "Pedagogia",
   },
   {
@@ -216,7 +216,7 @@ export const groups = [
     category: "Ciências Naturais",
     description: "Pesquisas e projetos em agricultura, sustentabilidade e agroecologia.",
     members: 123,
-    image: "https://images.unsplash.com/photo-1574152611937-0df4b286107c?w=400&h=300&fit=crop",
+    image: "images/grupo-pesquisa-agronomia.jpg",
     course: "Agronomia",
   },
   {
@@ -225,7 +225,7 @@ export const groups = [
     category: "Ciências Naturais",
     description: "Discussões sobre descobertas científicas e pesquisa experimental.",
     members: 189,
-    image: "https://images.unsplash.com/photo-1574152611937-0df4b286107c?w=400&h=300&fit=crop",
+    image: "images/sociedade-ciencias.jpg",
     course: "Ciências Naturais",
   },
 
@@ -254,7 +254,7 @@ export const groups = [
     category: "Sustentabilidade",
     description: "Ações ambientais, reciclagem e conscientização sustentável.",
     members: 234,
-    image: "https://images.unsplash.com/photo-1574152611937-0df4b286107c?w=400&h=300&fit=crop",
+    image: "images/grupo-ambiental.jpg",
     course: "Multidisciplinar",
   },
   {

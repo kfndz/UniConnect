@@ -126,7 +126,7 @@ export const events = [
     location: "Bloco A - Sala de Aula 101",
     category: "Medicina",
     course: "Medicina",
-    image: "https://images.unsplash.com/photo-1585865387789-ce51b671d5bc?w=600&h=400&fit=crop&q=80",
+    image: "images/seminario-etica-medica.png",
     participants: 156,
   },
 
@@ -140,7 +140,7 @@ export const events = [
     location: "Laboratório de Biologia",
     category: "Enfermagem",
     course: "Enfermagem",
-    image: "https://images.unsplash.com/photo-1631217314498-c5c189e9c0aa?w=600&h=400&fit=crop&q=80",
+    image: "images/workshop-primeiros-socorros.jpg",
     participants: 89,
   },
 
@@ -154,7 +154,7 @@ export const events = [
     location: "Bloco D - Sala de Seminários",
     category: "Psicologia",
     course: "Psicologia",
-    image: "https://images.unsplash.com/photo-1527482797697-8795b1a55a45?w=600&h=400&fit=crop&q=80",
+    image: "images/palestra-saude-mental.jpg",
     participants: 112,
   },
   {
@@ -180,7 +180,7 @@ export const events = [
     location: "Bloco A - Sala de Aula 101",
     category: "Direito",
     course: "Direito",
-    image: "https://images.unsplash.com/photo-1554521666-7deac817c8fe?w=600&h=400&fit=crop&q=80",
+    image: "images/seminario-direito-digital.jpg",
     participants: 78,
   },
   {
@@ -192,7 +192,7 @@ export const events = [
     location: "Bloco C - Auditório Principal",
     category: "Direito",
     course: "Direito",
-    image: "https://images.unsplash.com/photo-1611423318046-ab4d3c82d73c?w=600&h=400&fit=crop&q=80",
+    image: "images/palestra-direitos-humanos.jpg",
     participants: 145,
   },
 
@@ -206,7 +206,7 @@ export const events = [
     location: "Bloco B - Laboratório de Informática",
     category: "Pedagogia",
     course: "Pedagogia",
-    image: "https://images.unsplash.com/photo-1427504494888-7d0ac21345fe?w=600&h=400&fit=crop&q=80",
+    image: "images/workshop-metodologias-ativas.jpg",
     participants: 93,
   },
   {
@@ -258,7 +258,7 @@ export const events = [
     location: "Espaço Principal do Campus",
     category: "Agronomia",
     course: "Agronomia",
-    image: "https://images.unsplash.com/photo-1574152611937-0df4b286107c?w=600&h=400&fit=crop&q=80",
+    image: "images/seminario-agricultura.jpg",
     participants: 45,
   },
   {
@@ -270,7 +270,7 @@ export const events = [
     location: "Espaço Principal do Campus",
     category: "Agronomia",
     course: "Agronomia",
-    image: "https://images.unsplash.com/photo-1635839066195-d4a9f6f3eb56?w=600&h=400&fit=crop&q=80",
+    image: "images/visita-tecnica.jpg",
     participants: 38,
   },
 
@@ -284,7 +284,7 @@ export const events = [
     location: "Bloco E - Galeria de Arte",
     category: "Design Gráfico",
     course: "Design Gráfico",
-    image: "https://images.unsplash.com/photo-1606986628025-35d57e735ae0?w=600&h=400&fit=crop&q=80",
+    image: "images/workshop-motion.jpg",
     participants: 56,
   },
 
@@ -338,7 +338,7 @@ export const events = [
     location: "Bloco C - Auditório Principal",
     category: "Artes Cênicas",
     course: "Teatro",
-    image: "https://images.unsplash.com/photo-1485579149c0-123db9ce5e9c?w=600&h=400&fit=crop&q=80",
+    image: "images/festival-teatro-experimental.jpg",
     participants: 245,
   },
   {
@@ -350,7 +350,7 @@ export const events = [
     location: "Quadra do Campus",
     category: "Dança",
     course: "Artes Cênicas",
-    image: "https://images.unsplash.com/photo-1508700115892-5e266fcd6bac?w=600&h=400&fit=crop&q=80",
+    image: "images/oficina-danca.jpg",
     participants: 78,
   },
 
