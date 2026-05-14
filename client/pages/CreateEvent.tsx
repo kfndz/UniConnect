@@ -1,14 +1,10 @@
 import { Layout } from "@/components/Layout";
-
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-
-import { AlertCircle, ArrowLeft, CalendarPlus } from "lucide-react";
-
+import { AlertCircle, ArrowLeft } from "lucide-react";
 import { LOCATIONS } from "@/lib/events-data";
 
 const CATEGORIES = [
@@ -29,6 +25,39 @@ const CATEGORIES = [
   "Dança",
 ];
 
+const CATEGORY_IMAGES: Record<string, string> = {
+  "Ciência da Computação":
+    "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop",
+  "Engenharia Civil":
+    "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1200&auto=format&fit=crop",
+  "Engenharia Elétrica":
+    "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
+  Medicina:
+    "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1200&auto=format&fit=crop",
+  Enfermagem:
+    "https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=1200&auto=format&fit=crop",
+  Psicologia:
+    "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=1200&auto=format&fit=crop",
+  Direito:
+    "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=1200&auto=format&fit=crop",
+  Pedagogia:
+    "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop",
+  "Publicidade e Propaganda":
+    "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop",
+  Agronomia:
+    "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=1200&auto=format&fit=crop",
+  "Design Gráfico":
+    "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
+  "Artes Visuais":
+    "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?q=80&w=1200&auto=format&fit=crop",
+  Música:
+    "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1200&auto=format&fit=crop",
+  Teatro:
+    "https://images.unsplash.com/photo-1503095396549-807759245b35?q=80&w=1200&auto=format&fit=crop",
+  Dança:
+    "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?q=80&w=1200&auto=format&fit=crop",
+};
+
 export default function CreateEvent() {
   const navigate = useNavigate();
 
@@ -48,23 +77,44 @@ export default function CreateEvent() {
 
     setError("");
 
-    const { title, description, date, time, location, category } = formData;
+    const {
+      title,
+      description,
+      date,
+      time,
+      location,
+      category,
+    } = formData;
 
-    if (!title || !description || !date || !time || !location || !category) {
+    if (
+      !title ||
+      !description ||
+      !date ||
+      !time ||
+      !location ||
+      !category
+    ) {
       setError("Todos os campos são obrigatórios.");
       return;
     }
 
+    const newEvent = {
+      id: Date.now(),
+      title,
+      description,
+      date,
+      time,
+      location,
+      category,
+      participants: 0,
+      image:
+        CATEGORY_IMAGES[category] ||
+        "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1200&auto=format&fit=crop",
+    };
+
     const existingEvents = JSON.parse(
       localStorage.getItem("customEvents") || "[]",
     );
-
-    const newEvent = {
-      id: Date.now(),
-      ...formData,
-      participants: 0,
-      image: "/img/default-event.jpg",
-    };
 
     localStorage.setItem(
       "customEvents",
@@ -76,49 +126,40 @@ export default function CreateEvent() {
 
   return (
     <Layout>
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-2xl mx-auto">
         <Button
           variant="outline"
           onClick={() => navigate("/events")}
-          className="mb-6 hover:-translate-y-1 transition-all duration-300"
+          className="mb-6 hover:bg-primary-50"
         >
           <ArrowLeft className="mr-2 w-4 h-4" />
           Voltar aos Eventos
         </Button>
 
         <Card className="p-8 shadow-sm">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center">
-              <CalendarPlus className="w-6 h-6 text-primary-500" />
-            </div>
+          <h1 className="text-3xl font-bold text-foreground mb-2">
+            Criar Novo Evento
+          </h1>
 
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">
-                Criar Novo Evento
-              </h1>
-
-              <p className="text-muted-foreground">
-                Compartilhe um evento com a comunidade universitária
-              </p>
-            </div>
-          </div>
+          <p className="text-muted-foreground mb-8">
+            Compartilhe um evento cultural com a comunidade universitária
+          </p>
 
           {error && (
-            <div className="mt-6 mb-6 p-4 rounded-xl border border-red-200 bg-red-50 flex gap-3">
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex gap-3">
               <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-
               <p className="text-sm text-red-700">{error}</p>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6 mt-8">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-sm font-medium mb-2">
                 Título do Evento *
               </label>
 
               <Input
-                placeholder="Ex: Workshop de React"
+                placeholder="Ex: Festival de Artes 2026"
                 value={formData.title}
                 onChange={(e) =>
                   setFormData({
@@ -136,7 +177,7 @@ export default function CreateEvent() {
 
               <textarea
                 rows={5}
-                placeholder="Descreva os detalhes do evento..."
+                placeholder="Descreva o evento..."
                 value={formData.description}
                 onChange={(e) =>
                   setFormData({
@@ -144,13 +185,15 @@ export default function CreateEvent() {
                     description: e.target.value,
                   })
                 }
-                className="w-full px-4 py-3 border border-input rounded-xl bg-background text-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-4 py-3 border border-input rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium mb-2">Data *</label>
+                <label className="block text-sm font-medium mb-2">
+                  Data *
+                </label>
 
                 <Input
                   type="date"
@@ -165,7 +208,9 @@ export default function CreateEvent() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Hora *</label>
+                <label className="block text-sm font-medium mb-2">
+                  Hora *
+                </label>
 
                 <Input
                   type="time"
@@ -194,7 +239,7 @@ export default function CreateEvent() {
                       location: e.target.value,
                     })
                   }
-                  className="w-full px-4 py-3 border border-input rounded-xl bg-background focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-4 py-3 border border-input rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary-500"
                 >
                   <option value="">Selecione um local</option>
 
@@ -219,7 +264,7 @@ export default function CreateEvent() {
                       category: e.target.value,
                     })
                   }
-                  className="w-full px-4 py-3 border border-input rounded-xl bg-background focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-4 py-3 border border-input rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary-500"
                 >
                   <option value="">Selecione uma categoria</option>
 
@@ -232,10 +277,10 @@ export default function CreateEvent() {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+            <div className="flex flex-col md:flex-row gap-4 pt-2">
               <Button
                 type="submit"
-                className="flex-1 bg-primary-500 hover:bg-primary-600 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                className="flex-1 bg-primary-500 hover:bg-primary-600 text-white"
               >
                 Criar Evento
               </Button>
