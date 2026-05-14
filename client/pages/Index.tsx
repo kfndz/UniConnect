@@ -26,7 +26,7 @@ export default function Index() {
             </div>
             <h1 className="text-2xl font-bold text-foreground">UniConnect</h1>
           </Link>
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-3">
             {user ? (
               <Link to="/dashboard">
                 <Button className="bg-primary-500 hover:bg-primary-600">
@@ -52,7 +52,7 @@ export default function Index() {
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-6 py-20 text-center">
         <div className="animate-fade-in">
-          <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
             Sua comunidade acadêmica
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-accent-200">
               conectada e colaborativa
@@ -63,7 +63,7 @@ export default function Index() {
             atividades culturais e aumenta o sentimento de pertencimento dentro
             da comunidade universitária.
           </p>
-          <div className="flex gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/dashboard">
               <Button
                 size="lg"
@@ -72,7 +72,16 @@ export default function Index() {
                 Acessar plataforma <ArrowRight className="ml-2" />
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="text-lg">
+            <Button
+              size="lg"
+              variant="outline"
+              className="text-lg hover:-translate-y-1 transition-all duration-300"
+              onClick={() => {
+                document
+                  .getElementById("features-section")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
               Saiba Mais
             </Button>
           </div>
@@ -80,7 +89,10 @@ export default function Index() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-card rounded-2xl mx-6 mb-20 border border-border">
+      <section
+        id="features-section"
+        className="py-20 bg-card rounded-2xl mx-6 mb-20 border border-border"
+      >
         <div className="max-w-7xl mx-auto px-6">
           <h3 className="text-3xl font-bold text-foreground text-center mb-16">
             Funcionalidades Principais
@@ -174,7 +186,7 @@ export default function Index() {
           <p className="text-xl opacity-90 mb-8">
             Faça parte de uma comunidade acadêmica vibrante e colaborativa.
           </p>
-          <div className="flex gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
               className="bg-white text-primary-600 border border-primary-200 shadow-sm hover:bg-primary-500 hover:text-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
@@ -189,7 +201,7 @@ export default function Index() {
       {/* Footer */}
       <footer className="border-t border-border mt-20">
         <div className="max-w-7xl mx-auto px-6 py-12 text-center text-muted-foreground">
-          <p>&copy; 2024 UniConnect. Conectando comunidades acadêmicas.</p>
+          <p>&copy; 2026 UniConnect. Conectando comunidades acadêmicas.</p>
         </div>
       </footer>
     </div>
