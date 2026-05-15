@@ -2,9 +2,11 @@ import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { useAuth } from "@/contexts/AuthContext";
-import { Edit, Save, X, BookOpen, Calendar, Camera } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/contexts/AuthContext";
+
+import { Edit, Save, X, BookOpen, Calendar, Camera } from "lucide-react";
+
 import { useState } from "react";
 
 export default function Profile() {
@@ -43,7 +45,7 @@ export default function Profile() {
   const handleRemoveInterest = (interest: string) => {
     setFormData({
       ...formData,
-      interests: formData.interests.filter((i) => i !== interest),
+      interests: formData.interests.filter((i: string) => i !== interest),
     });
   };
 
@@ -79,11 +81,12 @@ export default function Profile() {
 
   return (
     <Layout>
-      <div className="max-w-2xl mx-auto">
-        {/* Profile Header */}
-        <Card className="p-8 mb-8">
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
+      <div className="max-w-4xl mx-auto space-y-6">
+        {/* HEADER */}
+        <Card className="p-8 border border-border bg-card shadow-sm">
+          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
             <div className="flex flex-col sm:flex-row gap-6 flex-1">
+              {/* Avatar */}
               <div className="relative w-fit">
                 <img
                   src={
@@ -91,14 +94,14 @@ export default function Profile() {
                     `https://api.dicebear.com/7.x/avataaars/svg?seed=${formData.name}`
                   }
                   alt={formData.name}
-                  className="w-24 h-24 rounded-full border-4 border-primary-500 object-cover"
+                  className="w-28 h-28 rounded-full border-4 border-primary object-cover shadow-lg"
                 />
 
                 {isEditing && (
                   <>
                     <label
                       htmlFor="avatar-upload"
-                      className="absolute bottom-0 right-0 bg-primary-500 hover:bg-primary-600 p-2 rounded-full cursor-pointer transition-colors"
+                      className="absolute bottom-0 right-0 p-2 rounded-full bg-primary hover:bg-primary/90 transition-colors cursor-pointer shadow-md"
                     >
                       <Camera className="w-4 h-4 text-white" />
                     </label>
@@ -114,33 +117,35 @@ export default function Profile() {
                 )}
               </div>
 
+              {/* Infos */}
               <div className="flex-1">
                 <h1 className="text-3xl font-bold text-foreground mb-2">
                   {formData.name}
                 </h1>
 
-                <p className="text-muted-foreground mb-4">{formData.email}</p>
+                <p className="text-muted-foreground mb-5">{formData.email}</p>
 
-                <div className="flex flex-col sm:flex-row gap-4 text-sm text-muted-foreground">
-                  <div className="flex items-center gap-2">
-                    <BookOpen className="w-4 h-4" />
+                <div className="flex flex-col sm:flex-row gap-4 text-sm">
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <BookOpen className="w-4 h-4 text-primary" />
                     <span>{formData.course}</span>
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <Calendar className="w-4 h-4 text-primary" />
                     <span>{formData.semester}º semestre</span>
                   </div>
                 </div>
               </div>
             </div>
 
+            {/* Botão */}
             <Button
               onClick={() => setIsEditing(!isEditing)}
               className={
                 isEditing
-                  ? "bg-orange-500 hover:bg-orange-600"
-                  : "bg-primary-500 hover:bg-primary-600"
+                  ? "bg-orange-500 hover:bg-orange-600 text-white"
+                  : "bg-primary hover:bg-primary/90 text-white"
               }
             >
               {isEditing ? (
@@ -158,14 +163,14 @@ export default function Profile() {
           </div>
         </Card>
 
-        {/* Edit Form */}
+        {/* FORM */}
         {isEditing && (
-          <Card className="p-6 mb-8 bg-primary-50 border-primary-200">
-            <h3 className="text-lg font-bold text-foreground mb-4">
+          <Card className="p-6 border border-border bg-card shadow-sm">
+            <h3 className="text-xl font-bold text-foreground mb-6">
               Editar Perfil
             </h3>
 
-            <div className="space-y-4">
+            <div className="space-y-5">
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Nome
@@ -195,7 +200,7 @@ export default function Profile() {
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
                     Curso
@@ -225,7 +230,7 @@ export default function Profile() {
                         semester: parseInt(e.target.value),
                       })
                     }
-                    className="w-full px-4 py-2 border border-input rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-4 py-2 rounded-lg border border-input bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                   >
                     {[1, 2, 3, 4, 5, 6, 7, 8].map((s) => (
                       <option key={s} value={s}>
@@ -238,7 +243,7 @@ export default function Profile() {
 
               <Button
                 onClick={handleSave}
-                className="w-full bg-green-500 hover:bg-green-600"
+                className="w-full bg-green-500 hover:bg-green-600 text-white"
               >
                 <Save className="mr-2 w-4 h-4" />
                 Salvar Alterações
@@ -247,63 +252,61 @@ export default function Profile() {
           </Card>
         )}
 
-        {/* Interests Section */}
-        <Card className="p-6 mb-8">
-          <h3 className="text-lg font-bold text-foreground mb-4">
+        {/* INTERESSES */}
+        <Card className="p-6 border border-border bg-card shadow-sm">
+          <h3 className="text-xl font-bold text-foreground mb-5">
             Interesses Acadêmicos e Culturais
           </h3>
 
-          <div className="mb-4">
-            <div className="flex flex-col sm:flex-row gap-2 mb-4">
-              <Input
-                placeholder="Adicione seus interesses..."
-                value={newInterest}
-                onChange={(e) => setNewInterest(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleAddInterest()}
-              />
+          <div className="flex flex-col sm:flex-row gap-3 mb-5">
+            <Input
+              placeholder="Adicione seus interesses..."
+              value={newInterest}
+              onChange={(e) => setNewInterest(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleAddInterest()}
+            />
 
-              <Button
-                onClick={handleAddInterest}
-                className="bg-primary-500 hover:bg-primary-600"
+            <Button
+              onClick={handleAddInterest}
+              className="bg-primary hover:bg-primary/90 text-white"
+            >
+              Adicionar
+            </Button>
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            {formData.interests.map((interest: string) => (
+              <Badge
+                key={interest}
+                onClick={() => handleRemoveInterest(interest)}
+                className="cursor-pointer px-3 py-1.5 bg-primary/15 text-primary border border-primary/20 hover:bg-primary/25 transition-colors flex items-center gap-2"
               >
-                Adicionar
-              </Button>
-            </div>
+                {interest}
 
-            <div className="flex flex-wrap gap-2">
-              {formData.interests.map((interest) => (
-                <Badge
-                  key={interest}
-                  className="bg-primary-100 text-primary-700 border-primary-200 cursor-pointer hover:bg-primary-200 flex items-center gap-2"
-                  onClick={() => handleRemoveInterest(interest)}
-                >
-                  {interest}
-
-                  <X className="w-3 h-3" />
-                </Badge>
-              ))}
-            </div>
+                <X className="w-3 h-3" />
+              </Badge>
+            ))}
           </div>
         </Card>
 
-        {/* Stats Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <Card className="p-6 text-center">
-            <div className="text-3xl font-bold text-primary-500 mb-2">12</div>
+        {/* STATS */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <Card className="p-6 text-center border border-border bg-card">
+            <div className="text-3xl font-bold text-primary mb-2">12</div>
 
             <p className="text-sm text-muted-foreground">
               Eventos Participando
             </p>
           </Card>
 
-          <Card className="p-6 text-center">
-            <div className="text-3xl font-bold text-accent-200 mb-2">8</div>
+          <Card className="p-6 text-center border border-border bg-card">
+            <div className="text-3xl font-bold text-accent mb-2">8</div>
 
             <p className="text-sm text-muted-foreground">Grupos Ingressados</p>
           </Card>
 
-          <Card className="p-6 text-center">
-            <div className="text-3xl font-bold text-primary-400 mb-2">47</div>
+          <Card className="p-6 text-center border border-border bg-card">
+            <div className="text-3xl font-bold text-primary mb-2">47</div>
 
             <p className="text-sm text-muted-foreground">Interações no Mural</p>
           </Card>
