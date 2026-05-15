@@ -22,12 +22,7 @@ import {
 import { Link } from "react-router-dom";
 import { events } from "@/lib/events-data";
 import { useParticipations } from "@/hooks/useParticipations";
-<<<<<<< HEAD
 import { useState, useEffect } from "react";
-=======
-import { useState, useEffect } from "react";
-import { Input } from "@/components/ui/input";
->>>>>>> ca7a76ba90101516b21e35cb532badc98a66e85e
 
 export default function Dashboard() {
   const { isParticipating, toggleParticipation } =
@@ -37,6 +32,8 @@ export default function Dashboard() {
     useParticipations("dashboard-likes");
 
   const [newPost, setNewPost] = useState("");
+  const [editingPostId, setEditingPostId] = useState<number | null>(null);
+  const [editedContent, setEditedContent] = useState("");
 
   const userProfile = JSON.parse(localStorage.getItem("userProfile") || "{}");
 
@@ -88,7 +85,6 @@ export default function Dashboard() {
     },
   ];
 
-<<<<<<< HEAD
   const [communityPosts, setCommunityPosts] = useState(() => {
     const savedPosts = localStorage.getItem("community-posts");
 
@@ -99,20 +95,7 @@ export default function Dashboard() {
     localStorage.setItem("community-posts", JSON.stringify(communityPosts));
   }, [communityPosts]);
 
-=======
-  const [communityPosts, setCommunityPosts] = useState(() => {
-    const savedPosts = localStorage.getItem("communityPosts");
-
-    return savedPosts ? JSON.parse(savedPosts) : defaultPosts;
-  });
-
-  useEffect(() => {
-    localStorage.setItem("communityPosts", JSON.stringify(communityPosts));
-  }, [communityPosts]);
-
->>>>>>> ca7a76ba90101516b21e35cb532badc98a66e85e
   const handleNewPost = () => {
-<<<<<<< HEAD
     if (!newPost.trim()) return;
 
     const post = {
@@ -129,23 +112,6 @@ export default function Dashboard() {
 
     setCommunityPosts([post, ...communityPosts]);
     setNewPost("");
-=======
-    if (newPost.trim()) {
-      const post = {
-        id: Date.now(),
-        author: userProfile.name || "Você",
-        role: userProfile.course || "Estudante",
-        avatar: userAvatar,
-        content: newPost,
-        date: "Agora",
-        likeCount: 0,
-        commentCount: 0,
-      };
-
-      setCommunityPosts([post, ...communityPosts]);
-      setNewPost("");
-    }
->>>>>>> ca7a76ba90101516b21e35cb532badc98a66e85e
   };
 
   const handleDeletePost = (id: number) => {
@@ -458,7 +424,6 @@ export default function Dashboard() {
               alt="Seu avatar"
               className="w-10 h-10 rounded-full object-cover"
             />
-<<<<<<< HEAD
 
             <div className="flex-1 flex gap-2">
               <Input
@@ -479,27 +444,6 @@ export default function Dashboard() {
               >
                 <Send className="w-4 h-4" />
               </Button>
-=======
-
-            <div className="flex-1">
-              <div className="flex gap-2">
-                <Input
-                  placeholder="O que você gostaria de compartilhar com a comunidade?"
-                  value={newPost}
-                  onChange={(e) => setNewPost(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleNewPost()}
-                  className="flex-1"
-                />
-
-                <Button
-                  onClick={handleNewPost}
-                  disabled={!newPost.trim()}
-                  className="bg-primary-500 hover:bg-primary-600"
-                >
-                  <Send className="w-4 h-4" />
-                </Button>
-              </div>
->>>>>>> ca7a76ba90101516b21e35cb532badc98a66e85e
             </div>
           </div>
         </Card>
@@ -519,7 +463,6 @@ export default function Dashboard() {
                 />
 
                 <div className="flex-1">
-<<<<<<< HEAD
                   <div className="flex items-start justify-between">
                     <div>
                       <h4 className="font-bold text-foreground">
@@ -549,16 +492,8 @@ export default function Dashboard() {
                       </div>
                     )}
                   </div>
-=======
-                  <h4 className="font-bold text-foreground">{post.author}</h4>
-
-                  <p className="text-sm text-muted-foreground">
-                    {post.role} • {post.date}
-                  </p>
->>>>>>> ca7a76ba90101516b21e35cb532badc98a66e85e
                 </div>
               </div>
-<<<<<<< HEAD
 
               {editingPostId === post.id ? (
                 <div className="mb-4">
@@ -590,11 +525,6 @@ export default function Dashboard() {
                 <p className="text-foreground mb-4">{post.content}</p>
               )}
 
-=======
-
-              <p className="text-foreground mb-4">{post.content}</p>
-
->>>>>>> ca7a76ba90101516b21e35cb532badc98a66e85e
               <div className="flex gap-6 text-muted-foreground text-sm border-t border-border pt-4">
                 <button
                   onClick={() => toggleLike(`post-${post.id}`)}
