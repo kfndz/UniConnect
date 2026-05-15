@@ -11,7 +11,7 @@ import { useParticipations } from "@/hooks/useParticipations";
 import { Link } from "react-router-dom";
 
 export default function Events() {
-  const { isParticipating, toggleParticipation } =
+  const { isParticipating, toggleParticipation, getCount } =
     useParticipations("events-page");
 
   const savedEvents = JSON.parse(localStorage.getItem("customEvents") || "[]");
@@ -103,12 +103,20 @@ export default function Events() {
                   <div className="flex items-center gap-2">
                     <Users className="w-4 h-4 flex-shrink-0" />
 
-                    <span>{event.participants || 0} participantes</span>
+                    <span>
+                      {getCount(`event-${event.id}`, event.participants || 0)}{" "}
+                      participantes
+                    </span>
                   </div>
                 </div>
 
                 <Button
-                  onClick={() => toggleParticipation(`event-${event.id}`)}
+                  onClick={() =>
+                    toggleParticipation(
+                      `event-${event.id}`,
+                      event.participants || 0,
+                    )
+                  }
                   className={`w-full mt-6 transition-all duration-300 ${
                     isParticipating(`event-${event.id}`)
                       ? "bg-green-500 hover:bg-green-600 text-white"
