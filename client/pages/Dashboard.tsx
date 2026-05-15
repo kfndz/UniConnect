@@ -2,6 +2,7 @@ import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import {
   Calendar,
   Users,
@@ -13,12 +14,20 @@ import {
   Share2,
   Check,
   Send,
+  Pencil,
+  Trash2,
+  X,
+  Save,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { events } from "@/lib/events-data";
 import { useParticipations } from "@/hooks/useParticipations";
+<<<<<<< HEAD
+import { useState, useEffect } from "react";
+=======
 import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
+>>>>>>> ca7a76ba90101516b21e35cb532badc98a66e85e
 
 export default function Dashboard() {
   const { isParticipating, toggleParticipation } =
@@ -49,6 +58,7 @@ export default function Dashboard() {
       date: "Há 2 horas",
       likeCount: 45,
       commentCount: 12,
+      isUserPost: false,
     },
     {
       id: 2,
@@ -61,6 +71,7 @@ export default function Dashboard() {
       date: "Há 5 horas",
       likeCount: 234,
       commentCount: 67,
+      isUserPost: false,
     },
     {
       id: 3,
@@ -73,9 +84,22 @@ export default function Dashboard() {
       date: "Há 8 horas",
       likeCount: 156,
       commentCount: 34,
+      isUserPost: false,
     },
   ];
 
+<<<<<<< HEAD
+  const [communityPosts, setCommunityPosts] = useState(() => {
+    const savedPosts = localStorage.getItem("community-posts");
+
+    return savedPosts ? JSON.parse(savedPosts) : defaultPosts;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("community-posts", JSON.stringify(communityPosts));
+  }, [communityPosts]);
+
+=======
   const [communityPosts, setCommunityPosts] = useState(() => {
     const savedPosts = localStorage.getItem("communityPosts");
 
@@ -86,7 +110,26 @@ export default function Dashboard() {
     localStorage.setItem("communityPosts", JSON.stringify(communityPosts));
   }, [communityPosts]);
 
+>>>>>>> ca7a76ba90101516b21e35cb532badc98a66e85e
   const handleNewPost = () => {
+<<<<<<< HEAD
+    if (!newPost.trim()) return;
+
+    const post = {
+      id: Date.now(),
+      author: userProfile.name || "Você",
+      role: userProfile.course || "Estudante",
+      avatar: userAvatar,
+      content: newPost,
+      date: "Agora",
+      likeCount: 0,
+      commentCount: 0,
+      isUserPost: true,
+    };
+
+    setCommunityPosts([post, ...communityPosts]);
+    setNewPost("");
+=======
     if (newPost.trim()) {
       const post = {
         id: Date.now(),
@@ -102,6 +145,36 @@ export default function Dashboard() {
       setCommunityPosts([post, ...communityPosts]);
       setNewPost("");
     }
+>>>>>>> ca7a76ba90101516b21e35cb532badc98a66e85e
+  };
+
+  const handleDeletePost = (id: number) => {
+    setCommunityPosts((prevPosts: any[]) =>
+      prevPosts.filter((post) => post.id !== id),
+    );
+  };
+
+  const handleEditPost = (id: number, content: string) => {
+    setEditingPostId(id);
+    setEditedContent(content);
+  };
+
+  const handleSaveEdit = (id: number) => {
+    if (!editedContent.trim()) return;
+
+    setCommunityPosts((prevPosts: any[]) =>
+      prevPosts.map((post) =>
+        post.id === id
+          ? {
+              ...post,
+              content: editedContent,
+            }
+          : post,
+      ),
+    );
+
+    setEditingPostId(null);
+    setEditedContent("");
   };
 
   const featuredEvents = events.slice(0, 3).map((event) => ({
@@ -233,14 +306,13 @@ export default function Dashboard() {
           {featuredEvents.map((event) => (
             <Card
               key={event.id}
-              className="overflow-hidden hover:shadow-lg transition-shadow flex flex-col group cursor-pointer"
+              className="overflow-hidden hover:shadow-lg transition-shadow flex flex-col"
             >
-              <div className="relative overflow-hidden bg-gray-200 h-48 flex items-center justify-center">
+              <div className="relative overflow-hidden bg-gray-200 h-48">
                 <img
                   src={event.image}
                   alt={event.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  loading="lazy"
+                  className="w-full h-full object-cover"
                 />
 
                 <Badge className="absolute top-3 right-3 bg-primary-500 z-10">
@@ -285,10 +357,10 @@ export default function Dashboard() {
 
                 <Button
                   onClick={() => toggleParticipation(`event-${event.id}`)}
-                  className={`w-full transition-all ${
+                  className={`w-full ${
                     isParticipating(`event-${event.id}`)
-                      ? "bg-green-500 hover:bg-green-600 text-white"
-                      : "bg-primary-500 hover:bg-primary-600 text-white"
+                      ? "bg-green-500 hover:bg-green-600"
+                      : "bg-primary-500 hover:bg-primary-600"
                   }`}
                 >
                   {isParticipating(`event-${event.id}`) ? (
@@ -322,14 +394,13 @@ export default function Dashboard() {
           {popularGroups.map((group) => (
             <Card
               key={group.id}
-              className="text-center hover:shadow-lg transition-shadow overflow-hidden flex flex-col group cursor-pointer"
+              className="text-center hover:shadow-lg transition-shadow overflow-hidden flex flex-col"
             >
-              <div className="relative overflow-hidden bg-gray-200 h-32 flex items-center justify-center">
+              <div className="h-32 overflow-hidden">
                 <img
                   src={group.image}
                   alt={group.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  loading="lazy"
+                  className="w-full h-full object-cover"
                 />
               </div>
 
@@ -352,10 +423,10 @@ export default function Dashboard() {
                   onClick={() =>
                     toggleParticipation(`popular-group-${group.id}`)
                   }
-                  className={`w-full transition-all ${
+                  className={`w-full ${
                     isParticipating(`popular-group-${group.id}`)
-                      ? "bg-green-500 hover:bg-green-600 text-white"
-                      : "bg-primary-500 hover:bg-primary-600 text-white"
+                      ? "bg-green-500 hover:bg-green-600"
+                      : "bg-primary-500 hover:bg-primary-600"
                   }`}
                 >
                   {isParticipating(`popular-group-${group.id}`) ? (
@@ -379,14 +450,36 @@ export default function Dashboard() {
           Mural da Comunidade
         </h2>
 
-        {/* New Post Form */}
+        {/* New Post */}
         <Card className="p-6 mb-6">
-          <div className="flex gap-4 mb-4">
+          <div className="flex gap-4">
             <img
               src={userAvatar}
               alt="Seu avatar"
               className="w-10 h-10 rounded-full object-cover"
             />
+<<<<<<< HEAD
+
+            <div className="flex-1 flex gap-2">
+              <Input
+                placeholder="O que você gostaria de compartilhar?"
+                value={newPost}
+                onChange={(e) => setNewPost(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleNewPost();
+                  }
+                }}
+              />
+
+              <Button
+                onClick={handleNewPost}
+                disabled={!newPost.trim()}
+                className="bg-primary-500 hover:bg-primary-600"
+              >
+                <Send className="w-4 h-4" />
+              </Button>
+=======
 
             <div className="flex-1">
               <div className="flex gap-2">
@@ -406,13 +499,14 @@ export default function Dashboard() {
                   <Send className="w-4 h-4" />
                 </Button>
               </div>
+>>>>>>> ca7a76ba90101516b21e35cb532badc98a66e85e
             </div>
           </div>
         </Card>
 
-        {/* Posts Feed */}
+        {/* Posts */}
         <div className="space-y-4">
-          {communityPosts.map((post) => (
+          {communityPosts.map((post: any) => (
             <Card
               key={post.id}
               className="p-6 hover:shadow-md transition-shadow"
@@ -425,16 +519,82 @@ export default function Dashboard() {
                 />
 
                 <div className="flex-1">
+<<<<<<< HEAD
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h4 className="font-bold text-foreground">
+                        {post.author}
+                      </h4>
+
+                      <p className="text-sm text-muted-foreground">
+                        {post.role} • {post.date}
+                      </p>
+                    </div>
+
+                    {post.isUserPost && (
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleEditPost(post.id, post.content)}
+                          className="text-blue-500 hover:text-blue-700"
+                        >
+                          <Pencil className="w-4 h-4" />
+                        </button>
+
+                        <button
+                          onClick={() => handleDeletePost(post.id)}
+                          className="text-red-500 hover:text-red-700"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+=======
                   <h4 className="font-bold text-foreground">{post.author}</h4>
 
                   <p className="text-sm text-muted-foreground">
                     {post.role} • {post.date}
                   </p>
+>>>>>>> ca7a76ba90101516b21e35cb532badc98a66e85e
                 </div>
               </div>
+<<<<<<< HEAD
+
+              {editingPostId === post.id ? (
+                <div className="mb-4">
+                  <Input
+                    value={editedContent}
+                    onChange={(e) => setEditedContent(e.target.value)}
+                  />
+
+                  <div className="flex gap-2 mt-3">
+                    <Button size="sm" onClick={() => handleSaveEdit(post.id)}>
+                      <Save className="w-4 h-4 mr-1" />
+                      Salvar
+                    </Button>
+
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        setEditingPostId(null);
+                        setEditedContent("");
+                      }}
+                    >
+                      <X className="w-4 h-4 mr-1" />
+                      Cancelar
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-foreground mb-4">{post.content}</p>
+              )}
+
+=======
 
               <p className="text-foreground mb-4">{post.content}</p>
 
+>>>>>>> ca7a76ba90101516b21e35cb532badc98a66e85e
               <div className="flex gap-6 text-muted-foreground text-sm border-t border-border pt-4">
                 <button
                   onClick={() => toggleLike(`post-${post.id}`)}
