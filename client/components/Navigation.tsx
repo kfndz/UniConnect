@@ -1,4 +1,3 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   BookOpen,
   Home,
@@ -8,15 +7,35 @@ import {
   LogOut,
   Bell,
   User,
+  Moon,
+  Sun,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
+import { useEffect, useState } from "react";
 
 export function Navigation() {
   const location = useLocation();
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
 
   const savedProfile = JSON.parse(
     localStorage.getItem("userProfile") || "null",
@@ -133,6 +152,24 @@ export function Navigation() {
               <span>Notificações</span>
             </Button>
           </Link>
+
+          <Button
+            variant="ghost"
+            onClick={toggleTheme}
+            className="w-full justify-start gap-3 rounded-xl text-sidebar-foreground hover:bg-primary-500/15 hover:text-primary-500 hover:translate-x-1 transition-all duration-300"
+          >
+            {theme === "dark" ? (
+              <>
+                <Sun className="w-5 h-5" />
+                <span>Tema Claro</span>
+              </>
+            ) : (
+              <>
+                <Moon className="w-5 h-5" />
+                <span>Tema Escuro</span>
+              </>
+            )}
+          </Button>
 
           <Button
             variant="ghost"
