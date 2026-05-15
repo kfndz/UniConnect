@@ -6,6 +6,7 @@
 @tailwind utilities;
 
 @layer base {
+
   /**
    * Tailwind CSS theme
    * tailwind.config.ts expects the following color variables to be expressed as HSL values.
@@ -96,7 +97,7 @@
     --sidebar-primary: 263 80% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 263 100% 97%;
-    --sidebar-accent-foreground: 263 80% 50%;
+    --sidebar-accent-foreground: 263 90% 72%;
     --sidebar-border: 225 20% 20%;
     --sidebar-ring: 263 80% 50%;
   }
@@ -127,7 +128,30 @@
     white-space: pre;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-bold;
   }
+}
+
+/* Scrollbar moderna */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted));
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary-500));
 }
