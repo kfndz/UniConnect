@@ -17,23 +17,27 @@ import {
 import { Link } from "react-router-dom";
 import { events } from "@/lib/events-data";
 import { useParticipations } from "@/hooks/useParticipations";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 
 export default function Dashboard() {
   const { isParticipating, toggleParticipation } =
     useParticipations("dashboard-events");
+
   const { participations: likes, toggleParticipation: toggleLike } =
     useParticipations("dashboard-likes");
-  const { participations: comments, toggleParticipation: toggleComment } =
-    useParticipations("dashboard-comments");
+
   const [newPost, setNewPost] = useState("");
+
   const userProfile = JSON.parse(localStorage.getItem("userProfile") || "{}");
 
   const userAvatar =
     userProfile.avatar ||
-    `https://api.dicebear.com/7.x/avataaars/svg?seed=${userProfile.name || "User"}`;
-  const [communityPosts, setCommunityPosts] = useState([
+    `https://api.dicebear.com/7.x/avataaars/svg?seed=${
+      userProfile.name || "User"
+    }`;
+
+  const defaultPosts = [
     {
       id: 1,
       author: "João Silva",
@@ -70,12 +74,22 @@ export default function Dashboard() {
       likeCount: 156,
       commentCount: 34,
     },
-  ]);
+  ];
+
+  const [communityPosts, setCommunityPosts] = useState(() => {
+    const savedPosts = localStorage.getItem("communityPosts");
+
+    return savedPosts ? JSON.parse(savedPosts) : defaultPosts;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("communityPosts", JSON.stringify(communityPosts));
+  }, [communityPosts]);
 
   const handleNewPost = () => {
     if (newPost.trim()) {
       const post = {
-        id: communityPosts.length + 1,
+        id: Date.now(),
         author: userProfile.name || "Você",
         role: userProfile.course || "Estudante",
         avatar: userAvatar,
@@ -84,6 +98,7 @@ export default function Dashboard() {
         likeCount: 0,
         commentCount: 0,
       };
+
       setCommunityPosts([post, ...communityPosts]);
       setNewPost("");
     }
@@ -101,7 +116,6 @@ export default function Dashboard() {
       category: "Arte",
       members: 347,
       image: "images/clube-fotografia.jpg",
-      joined: Math.random() > 0.5,
     },
     {
       id: 2,
@@ -110,7 +124,6 @@ export default function Dashboard() {
       members: 89,
       image:
         "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=300&h=300&fit=crop&q=80",
-      joined: Math.random() > 0.5,
     },
     {
       id: 3,
@@ -119,7 +132,6 @@ export default function Dashboard() {
       members: 156,
       image:
         "https://images.unsplash.com/photo-1552664730-d307ca884978?w=300&h=300&fit=crop&q=80",
-      joined: Math.random() > 0.5,
     },
     {
       id: 4,
@@ -128,7 +140,6 @@ export default function Dashboard() {
       members: 523,
       image:
         "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=300&h=300&fit=crop&q=80",
-      joined: Math.random() > 0.5,
     },
   ];
 
@@ -141,30 +152,35 @@ export default function Dashboard() {
             <h1 className="text-4xl font-bold text-foreground">
               Bem-vindo de volta! 👋
             </h1>
+
             <p className="text-muted-foreground text-lg mt-2">
               Confira os eventos em destaque e grupos populares
             </p>
           </div>
+
           <Link to="/create-event">
             <Button
               size="lg"
               className="bg-primary-500 hover:bg-primary-600 w-fit"
             >
-              <Plus className="mr-2 w-5 h-5" /> Criar Evento
+              <Plus className="mr-2 w-5 h-5" />
+              Criar Evento
             </Button>
           </Link>
         </div>
       </div>
 
+      {/* Stats */}
       <div className="grid lg:grid-cols-3 gap-8 mb-12">
-        {/* Stats */}
         <div className="bg-gradient-to-br from-primary-50 to-primary-100/50 rounded-xl p-6 border border-primary-200">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-lg bg-primary-500 text-white flex items-center justify-center">
               <Calendar className="w-6 h-6" />
             </div>
+
             <div>
               <p className="text-sm text-muted-foreground">Eventos este mês</p>
+
               <p className="text-3xl font-bold text-foreground">12</p>
             </div>
           </div>
@@ -175,10 +191,12 @@ export default function Dashboard() {
             <div className="w-12 h-12 rounded-lg bg-accent-200 text-accent-700 flex items-center justify-center">
               <Users className="w-6 h-6" />
             </div>
+
             <div>
               <p className="text-sm text-muted-foreground">
                 Grupos que participa
               </p>
+
               <p className="text-3xl font-bold text-foreground">8</p>
             </div>
           </div>
@@ -189,8 +207,10 @@ export default function Dashboard() {
             <div className="w-12 h-12 rounded-lg bg-primary-400 text-white flex items-center justify-center">
               <Heart className="w-6 h-6" />
             </div>
+
             <div>
               <p className="text-sm text-muted-foreground">Interações</p>
+
               <p className="text-3xl font-bold text-foreground">47</p>
             </div>
           </div>
@@ -203,10 +223,12 @@ export default function Dashboard() {
           <h2 className="text-2xl font-bold text-foreground">
             Eventos em Destaque
           </h2>
+
           <Link to="/events">
             <Button variant="outline">Ver Todos</Button>
           </Link>
         </div>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredEvents.map((event) => (
             <Card
@@ -220,14 +242,17 @@ export default function Dashboard() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   loading="lazy"
                 />
+
                 <Badge className="absolute top-3 right-3 bg-primary-500 z-10">
                   {event.category}
                 </Badge>
               </div>
+
               <div className="p-6 flex-1 flex flex-col">
                 <h3 className="text-lg font-bold text-foreground mb-2">
                   {event.title}
                 </h3>
+
                 <p className="text-sm text-muted-foreground mb-4 flex-1">
                   {event.description}
                 </p>
@@ -235,16 +260,21 @@ export default function Dashboard() {
                 <div className="space-y-2 mb-4 text-sm text-muted-foreground">
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4" />
+
                     <span>
                       {event.date} às {event.time}
                     </span>
                   </div>
+
                   <div className="flex items-center gap-2">
                     <MapPin className="w-4 h-4" />
+
                     <span>{event.location}</span>
                   </div>
+
                   <div className="flex items-center gap-2">
                     <Users className="w-4 h-4" />
+
                     <span>
                       {event.participants +
                         (isParticipating(`event-${event.id}`) ? 1 : 0)}{" "}
@@ -263,7 +293,8 @@ export default function Dashboard() {
                 >
                   {isParticipating(`event-${event.id}`) ? (
                     <>
-                      <Check className="mr-2 w-4 h-4" /> Inscrito
+                      <Check className="mr-2 w-4 h-4" />
+                      Inscrito
                     </>
                   ) : (
                     "Participar"
@@ -281,10 +312,12 @@ export default function Dashboard() {
           <h2 className="text-2xl font-bold text-foreground">
             Grupos Populares
           </h2>
+
           <Link to="/groups">
             <Button variant="outline">Explorar Grupos</Button>
           </Link>
         </div>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {popularGroups.map((group) => (
             <Card
@@ -299,19 +332,22 @@ export default function Dashboard() {
                   loading="lazy"
                 />
               </div>
+
               <div className="p-6 flex-1 flex flex-col">
                 <h3 className="text-lg font-bold text-foreground mb-1">
                   {group.name}
                 </h3>
+
                 <Badge variant="outline" className="mx-auto mb-4">
                   {group.category}
                 </Badge>
+
                 <p className="text-sm text-muted-foreground mb-4 flex-1">
                   {group.members +
                     (isParticipating(`popular-group-${group.id}`) ? 1 : 0)}{" "}
                   membros
                 </p>
-                
+
                 <Button
                   onClick={() =>
                     toggleParticipation(`popular-group-${group.id}`)
@@ -324,7 +360,8 @@ export default function Dashboard() {
                 >
                   {isParticipating(`popular-group-${group.id}`) ? (
                     <>
-                      <Check className="mr-2 w-4 h-4" /> Membro
+                      <Check className="mr-2 w-4 h-4" />
+                      Membro
                     </>
                   ) : (
                     "Entrar"
@@ -350,15 +387,17 @@ export default function Dashboard() {
               alt="Seu avatar"
               className="w-10 h-10 rounded-full object-cover"
             />
+
             <div className="flex-1">
               <div className="flex gap-2">
                 <Input
                   placeholder="O que você gostaria de compartilhar com a comunidade?"
                   value={newPost}
                   onChange={(e) => setNewPost(e.target.value)}
-                  onKeyPress={(e) => e.key === "Enter" && handleNewPost()}
+                  onKeyDown={(e) => e.key === "Enter" && handleNewPost()}
                   className="flex-1"
                 />
+
                 <Button
                   onClick={handleNewPost}
                   disabled={!newPost.trim()}
@@ -384,14 +423,18 @@ export default function Dashboard() {
                   alt={post.author}
                   className="w-12 h-12 rounded-full object-cover"
                 />
+
                 <div className="flex-1">
                   <h4 className="font-bold text-foreground">{post.author}</h4>
+
                   <p className="text-sm text-muted-foreground">
                     {post.role} • {post.date}
                   </p>
                 </div>
               </div>
+
               <p className="text-foreground mb-4">{post.content}</p>
+
               <div className="flex gap-6 text-muted-foreground text-sm border-t border-border pt-4">
                 <button
                   onClick={() => toggleLike(`post-${post.id}`)}
@@ -402,15 +445,22 @@ export default function Dashboard() {
                   }`}
                 >
                   <Heart
-                    className={`w-4 h-4 ${likes[`post-${post.id}`] ? "fill-red-500" : ""}`}
+                    className={`w-4 h-4 ${
+                      likes[`post-${post.id}`] ? "fill-red-500" : ""
+                    }`}
                   />
+
                   {post.likeCount + (likes[`post-${post.id}`] ? 1 : 0)}
                 </button>
+
                 <button className="flex items-center gap-2 hover:text-primary-500 transition-colors">
-                  <MessageSquare className="w-4 h-4" /> {post.commentCount}
+                  <MessageSquare className="w-4 h-4" />
+                  {post.commentCount}
                 </button>
+
                 <button className="flex items-center gap-2 hover:text-primary-500 transition-colors">
-                  <Share2 className="w-4 h-4" /> Compartilhar
+                  <Share2 className="w-4 h-4" />
+                  Compartilhar
                 </button>
               </div>
             </Card>
