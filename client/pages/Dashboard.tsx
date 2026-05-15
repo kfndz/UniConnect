@@ -28,6 +28,11 @@ export default function Dashboard() {
   const { participations: comments, toggleParticipation: toggleComment } =
     useParticipations("dashboard-comments");
   const [newPost, setNewPost] = useState("");
+  const userProfile = JSON.parse(localStorage.getItem("userProfile") || "{}");
+
+  const userAvatar =
+    userProfile.avatar ||
+    `https://api.dicebear.com/7.x/avataaars/svg?seed=${userProfile.name || "User"}`;
   const [communityPosts, setCommunityPosts] = useState([
     {
       id: 1,
@@ -71,10 +76,9 @@ export default function Dashboard() {
     if (newPost.trim()) {
       const post = {
         id: communityPosts.length + 1,
-        author: "Você",
-        role: "Estudante",
-        avatar:
-          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&q=80",
+        author: userProfile.name || "Você",
+        role: userProfile.course || "Estudante",
+        avatar: userAvatar,
         content: newPost,
         date: "Agora",
         likeCount: 0,
@@ -342,7 +346,7 @@ export default function Dashboard() {
         <Card className="p-6 mb-6">
           <div className="flex gap-4 mb-4">
             <img
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&q=80"
+              src={userAvatar}
               alt="Seu avatar"
               className="w-10 h-10 rounded-full object-cover"
             />
