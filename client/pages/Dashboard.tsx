@@ -211,7 +211,7 @@ export default function Dashboard() {
 
       {/* Stats */}
       <div className="grid lg:grid-cols-3 gap-8 mb-12">
-        <div className="bg-gradient-to-br from-primary-50 to-primary-100/50 rounded-xl p-6 border border-primary-200">
+        <div className="bg-gradient-to-br from-primary-100/80 to-primary-200/40 dark:from-primary-500/15 dark:to-primary-700/10 rounded-xl p-6 border border-primary-200 dark:border-primary-500/20">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-lg bg-primary-500 text-white flex items-center justify-center">
               <Calendar className="w-6 h-6" />
@@ -225,7 +225,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-accent-50 to-accent-100/50 rounded-xl p-6 border border-accent-200">
+        <div className="bg-gradient-to-br from-accent-50 to-accent-100/50 dark:from-accent/10 dark:to-accent/5 rounded-xl p-6 border border-accent-200 dark:border-accent/20">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-lg bg-accent-200 text-accent-700 flex items-center justify-center">
               <Users className="w-6 h-6" />
@@ -241,7 +241,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-primary-100/30 to-primary-50 rounded-xl p-6 border border-primary-200">
+        <div className="bg-gradient-to-br from-primary-100/40 to-primary-50 dark:from-primary-500/10 dark:to-primary-700/5 rounded-xl p-6 border border-primary-200 dark:border-primary-500/20">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-lg bg-primary-400 text-white flex items-center justify-center">
               <Heart className="w-6 h-6" />
