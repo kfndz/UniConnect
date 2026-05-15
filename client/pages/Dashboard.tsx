@@ -311,7 +311,7 @@ export default function Dashboard() {
                     (isParticipating(`popular-group-${group.id}`) ? 1 : 0)}{" "}
                   membros
                 </p>
-                F
+                
                 <Button
                   onClick={() =>
                     toggleParticipation(`popular-group-${group.id}`)
