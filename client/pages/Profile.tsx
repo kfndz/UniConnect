@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/contexts/AuthContext";
-import { Edit, Save, X, BookOpen, Calendar } from "lucide-react";
+import { Edit, Save, X, BookOpen, Calendar, Camera } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
@@ -20,6 +20,7 @@ export default function Profile() {
         course: user?.course || "",
         semester: user?.semester || 1,
         interests: user?.interests || [],
+        avatar: "",
       };
 
   const [isEditing, setIsEditing] = useState(false);
@@ -29,10 +30,7 @@ export default function Profile() {
   const [newInterest, setNewInterest] = useState("");
 
   const handleAddInterest = () => {
-    if (
-      newInterest.trim() &&
-      !formData.interests.includes(newInterest)
-    ) {
+    if (newInterest.trim() && !formData.interests.includes(newInterest)) {
       setFormData({
         ...formData,
         interests: [...formData.interests, newInterest],
@@ -45,17 +43,34 @@ export default function Profile() {
   const handleRemoveInterest = (interest: string) => {
     setFormData({
       ...formData,
-      interests: formData.interests.filter(
-        (i) => i !== interest
-      ),
+      interests: formData.interests.filter((i) => i !== interest),
     });
   };
 
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      alert("Selecione uma imagem válida.");
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setFormData({
+        ...formData,
+        avatar: reader.result as string,
+      });
+    };
+
+    reader.readAsDataURL(file);
+  };
+
   const handleSave = () => {
-    localStorage.setItem(
-      "userProfile",
-      JSON.stringify(formData)
-    );
+    localStorage.setItem("userProfile", JSON.stringify(formData));
 
     alert("Alterações salvas com sucesso!");
 
@@ -69,20 +84,42 @@ export default function Profile() {
         <Card className="p-8 mb-8">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6">
             <div className="flex flex-col sm:flex-row gap-6 flex-1">
-              <img
-                src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${formData.name}`}
-                alt={formData.name}
-                className="w-24 h-24 rounded-full border-4 border-primary-500"
-              />
+              <div className="relative w-fit">
+                <img
+                  src={
+                    formData.avatar ||
+                    `https://api.dicebear.com/7.x/avataaars/svg?seed=${formData.name}`
+                  }
+                  alt={formData.name}
+                  className="w-24 h-24 rounded-full border-4 border-primary-500 object-cover"
+                />
+
+                {isEditing && (
+                  <>
+                    <label
+                      htmlFor="avatar-upload"
+                      className="absolute bottom-0 right-0 bg-primary-500 hover:bg-primary-600 p-2 rounded-full cursor-pointer transition-colors"
+                    >
+                      <Camera className="w-4 h-4 text-white" />
+                    </label>
+
+                    <input
+                      id="avatar-upload"
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handleImageUpload}
+                    />
+                  </>
+                )}
+              </div>
 
               <div className="flex-1">
                 <h1 className="text-3xl font-bold text-foreground mb-2">
                   {formData.name}
                 </h1>
 
-                <p className="text-muted-foreground mb-4">
-                  {formData.email}
-                </p>
+                <p className="text-muted-foreground mb-4">{formData.email}</p>
 
                 <div className="flex flex-col sm:flex-row gap-4 text-sm text-muted-foreground">
                   <div className="flex items-center gap-2">
@@ -92,9 +129,7 @@ export default function Profile() {
 
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4" />
-                    <span>
-                      {formData.semester}º semestre
-                    </span>
+                    <span>{formData.semester}º semestre</span>
                   </div>
                 </div>
               </div>
@@ -187,9 +222,7 @@ export default function Profile() {
                     onChange={(e) =>
                       setFormData({
                         ...formData,
-                        semester: parseInt(
-                          e.target.value
-                        ),
+                        semester: parseInt(e.target.value),
                       })
                     }
                     className="w-full px-4 py-2 border border-input rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary-500"
@@ -225,13 +258,8 @@ export default function Profile() {
               <Input
                 placeholder="Adicione seus interesses..."
                 value={newInterest}
-                onChange={(e) =>
-                  setNewInterest(e.target.value)
-                }
-                onKeyDown={(e) =>
-                  e.key === "Enter" &&
-                  handleAddInterest()
-                }
+                onChange={(e) => setNewInterest(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleAddInterest()}
               />
 
               <Button
@@ -247,9 +275,7 @@ export default function Profile() {
                 <Badge
                   key={interest}
                   className="bg-primary-100 text-primary-700 border-primary-200 cursor-pointer hover:bg-primary-200 flex items-center gap-2"
-                  onClick={() =>
-                    handleRemoveInterest(interest)
-                  }
+                  onClick={() => handleRemoveInterest(interest)}
                 >
                   {interest}
 
@@ -263,9 +289,7 @@ export default function Profile() {
         {/* Stats Section */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Card className="p-6 text-center">
-            <div className="text-3xl font-bold text-primary-500 mb-2">
-              12
-            </div>
+            <div className="text-3xl font-bold text-primary-500 mb-2">12</div>
 
             <p className="text-sm text-muted-foreground">
               Eventos Participando
@@ -273,23 +297,15 @@ export default function Profile() {
           </Card>
 
           <Card className="p-6 text-center">
-            <div className="text-3xl font-bold text-accent-200 mb-2">
-              8
-            </div>
+            <div className="text-3xl font-bold text-accent-200 mb-2">8</div>
 
-            <p className="text-sm text-muted-foreground">
-              Grupos Ingressados
-            </p>
+            <p className="text-sm text-muted-foreground">Grupos Ingressados</p>
           </Card>
 
           <Card className="p-6 text-center">
-            <div className="text-3xl font-bold text-primary-400 mb-2">
-              47
-            </div>
+            <div className="text-3xl font-bold text-primary-400 mb-2">47</div>
 
-            <p className="text-sm text-muted-foreground">
-              Interações no Mural
-            </p>
+            <p className="text-sm text-muted-foreground">Interações no Mural</p>
           </Card>
         </div>
       </div>
