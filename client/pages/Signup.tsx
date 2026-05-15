@@ -7,22 +7,44 @@ import { Card } from "@/components/ui/card";
 import { BookOpen, User, Mail, Lock, BookOpenIcon, AlertCircle } from "lucide-react";
 
 const COURSES = [
-  "Ciência da Computação",
-  "Engenharia de Software",
-  "Engenharia Civil",
-  "Engenharia Elétrica",
-  "Engenharia Mecânica",
-  "Medicina",
-  "Enfermagem",
-  "Psicologia",
-  "Pedagogia",
-  "Direito",
   "Administração",
-  "Publicidade e Propaganda",
-  "Agronomia",
-  "Design Gráfico",
-  "Artes Visuais",
-  "Música",
+    "Agronomia",
+    "Análise e Desenvolvimento de Sistemas",
+    "Arquitetura e Urbanismo",
+    "Biomedicina",
+    "Ciência da Computação",
+    "Ciência de Dados",
+    "Ciências Contábeis",
+    "Design Gráfico",
+    "Direito",
+    "Educação Física",
+    "Enfermagem",
+    "Engenharia Civil",
+    "Engenharia da Computação",
+    "Engenharia de Produção",
+    "Engenharia Elétrica",
+    "Engenharia Mecânica",
+    "Engenharia de Software",
+    "Farmácia",
+    "Fisioterapia",
+    "Gastronomia",
+    "História",
+    "Jornalismo",
+    "Marketing",
+    "Matemática",
+    "Medicina",
+    "Medicina Veterinária",
+    "Música",
+    "Nutrição",
+    "Odontologia",
+    "Pedagogia",
+    "Psicologia",
+    "Publicidade e Propaganda",
+    "Relações Internacionais",
+    "Sistemas de Informação",
+    "Terapia Ocupacional",
+    "Turismo",
+    "Zootecnia",
 ];
 
 export default function Signup() {
@@ -135,9 +157,9 @@ export default function Signup() {
               onChange={(e) => setSemester(e.target.value)}
               className="w-full px-4 py-2 border border-input rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary-500"
             >
-              {[1, 2, 3, 4, 5, 6, 7, 8].map((s) => (
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((s) => (
                 <option key={s} value={s}>
-                  {s}º semestre
+                  {s}º Semestre
                 </option>
               ))}
             </select>
