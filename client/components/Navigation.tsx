@@ -62,7 +62,7 @@ export function Navigation() {
   };
 
   return (
-    <nav className="fixed left-0 top-0 h-screen w-64 border-r border-border bg-sidebar text-sidebar-foreground">
+    <nav className="fixed left-0 top-0 h-screen w-64 border-r border-border bg-sidebar text-sidebar-foreground overflow-y-auto">
       <div className="flex flex-col h-full">
         {/* Logo */}
         <div className="px-6 py-8 border-b border-sidebar-border">
@@ -87,7 +87,7 @@ export function Navigation() {
         </div>
 
         {/* Main Navigation */}
-        <div className="flex-1 px-4 py-8 space-y-2">
+        <div className="px-4 py-4 pb-8 border-t border-sidebar-border space-y-2">
           <Link to="/" className={navItemClass("/")}>
             <Home className="w-5 h-5" />
             <span>Início</span>
